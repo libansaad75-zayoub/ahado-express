@@ -1,0 +1,25 @@
+// Initialisation globale du site
+import {loadCatalog} from './data-loader.js';
+import {initCatalog,bindCatalogEvents} from './catalog.js';
+import {bindCartEvents,renderCart,setProductsForUpsell,addToCart} from './cart.js';
+import {initCheckout,bindCheckoutEvents} from './checkout.js';
+import {applyI18n,getLang} from './i18n.js';
+import {bindTrackedLinks} from './analytics.js';
+function bindUI(products){
+  const drawer=document.getElementById('cart-drawer');
+  document.getElementById('cart-open').addEventListener('click',()=>{drawer.classList.add('open');drawer.setAttribute('aria-hidden','false');});
+  document.getElementById('cart-close').addEventListener('click',()=>{drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true');});
+  document.getElementById('lang-select').addEventListener('change',e=>applyI18n(e.target.value));
+  document.addEventListener('click',e=>{const b=e.target.closest('[data-upsell]'); if(!b)return; const p=products.find(x=>x.name===b.dataset.upsell); if(p&&p.variants[0]) addToCart({id:`${p.name}-${p.variants[0].label}`.replace(/\s+/g,'-').toLowerCase(),name:p.name,label:p.variants[0].label,price:p.variants[0].price});});
+}
+function injectSchema(products){
+  const script=document.createElement('script'); script.type='application/ld+json';
+  script.textContent=JSON.stringify({'@context':'https://schema.org','@type':'LocalBusiness',name:'AHADO EXPRESS',url:'https://ahadoexpress.net',telephone:'+253 77 78 83 02',areaServed:'Djibouti-Ville',founder:{'@type':'Person',name:'Liban Ali'},makesOffer:products.slice(0,50).map((p,i)=>({'@type':'Offer',position:i+1,itemOffered:{'@type':'Product',name:p.name,category:p.cat}}))});
+  document.head.appendChild(script);
+}
+document.addEventListener('DOMContentLoaded',async()=>{
+  const lang=getLang(); document.getElementById('lang-select').value=lang; applyI18n(lang); document.getElementById('current-year').textContent=new Date().getFullYear();
+  const products=await loadCatalog(); setProductsForUpsell(products); initCatalog(products); initCheckout(); renderCart(); injectSchema(products);
+  const hc=document.getElementById('hero-product-count'); if(hc) hc.textContent=products.length;
+  bindCatalogEvents(); bindCartEvents(); bindCheckoutEvents(); bindTrackedLinks(); bindUI(products);
+});

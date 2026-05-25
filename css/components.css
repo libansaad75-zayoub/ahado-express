@@ -1,0 +1,75 @@
+/* Composants : boutons, cartes produit emoji, panier, modal, FAB */
+
+/* Boutons */
+.btn{border:0;border-radius:999px;padding:.85rem 1.15rem;font-weight:800;font-family:var(--font-head);display:inline-flex;align-items:center;justify-content:center;gap:.4rem;cursor:pointer;transition:transform .18s ease,background .18s ease,box-shadow .18s ease}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--forest);color:#fff;box-shadow:0 8px 22px rgba(21,112,58,.28)}
+.btn-primary:hover{background:var(--forest-dark)}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{background:#000}
+.btn-soft{background:#fff;color:var(--forest);border:1px solid var(--line)}
+.btn-soft:hover{border-color:var(--forest);background:var(--forest-soft)}
+.full{width:100%}
+.icon-btn{border:1px solid var(--line);background:#fff;border-radius:999px;width:42px;height:42px;font-size:1.4rem;cursor:pointer;transition:background .18s}
+.icon-btn:hover{background:var(--cream-2)}
+
+/* Champs */
+.search-box input,.modal input,.modal select,.modal textarea,#lang-select{border:1px solid var(--line);border-radius:999px;padding:.9rem 1.1rem;background:#fff;min-width:220px;font:inherit;font-size:16px}
+.modal textarea{border-radius:18px}
+.search-box input:focus,.modal input:focus,.modal select:focus,.modal textarea:focus{border-color:var(--forest)}
+
+/* Filtres catégories (puces scrollables) */
+.filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.4rem}
+.filter-btn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:.6rem .95rem;font-weight:700;font-size:.95rem;cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;transition:background .18s,color .18s,border-color .18s}
+.filter-btn:hover{border-color:var(--forest)}
+.filter-btn.active{background:var(--forest);color:#fff;border-color:var(--forest)}
+.filter-count{font-size:.78rem;font-weight:800;background:rgba(0,0,0,.06);color:inherit;border-radius:999px;padding:.05rem .45rem;opacity:.85}
+.filter-btn.active .filter-count{background:rgba(255,255,255,.22)}
+
+/* Carte produit — tuile emoji */
+.product-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow-sm);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.product-card:hover{transform:translateY(-4px);box-shadow:0 18px 44px rgba(19,32,26,.12);border-color:var(--gold)}
+.product-media{position:relative;aspect-ratio:4/3;background:var(--tile-bg,#f3f0e7);box-shadow:inset 0 0 0 1px var(--tile-ring,transparent);display:grid;place-items:center}
+.product-emoji{font-size:clamp(3rem,7vw,4.4rem);line-height:1;filter:drop-shadow(0 6px 10px rgba(0,0,0,.08))}
+.product-body{padding:1rem 1rem 1.1rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+.product-cat{font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--forest)}
+.product-name{font-size:1.08rem;line-height:1.25;margin:0}
+.badge{position:absolute;top:.6rem;inset-inline-end:.6rem;background:var(--gold);color:#5b4500;border-radius:999px;padding:.28rem .6rem;font-size:.76rem;font-weight:800;white-space:nowrap;box-shadow:0 4px 10px rgba(0,0,0,.12)}
+.variants{display:grid;gap:.45rem;margin-top:auto;padding-top:.4rem}
+.variant-row{display:flex;align-items:center;gap:.5rem;background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:.3rem .35rem .3rem .9rem}
+.variant-label{font-size:.9rem;color:var(--muted);font-weight:600}
+.price{font-weight:800;color:var(--forest);margin-inline-start:auto;font-variant-numeric:tabular-nums}
+.btn-add{background:var(--forest);color:#fff;width:34px;height:34px;min-width:34px;padding:0;font-size:1.3rem;border-radius:999px;flex-shrink:0}
+.btn-add:hover{background:var(--forest-dark)}
+.catalog-empty{color:var(--muted);grid-column:1/-1;padding:2rem 0}
+
+/* Tiroir panier */
+.cart-drawer{position:fixed;inset-inline-end:1rem;top:1rem;bottom:1rem;width:min(430px,calc(100vw - 2rem));background:var(--cream);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);z-index:80;padding:1rem;display:flex;flex-direction:column;gap:1rem;transform:translateX(120%);transition:transform .28s ease}
+body[dir="rtl"] .cart-drawer{transform:translateX(-120%)}
+.cart-drawer.open{transform:none}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.cart-items{overflow:auto;display:grid;gap:.7rem;flex:1}
+.cart-line{background:#fff;border:1px solid var(--line);border-radius:16px;padding:.75rem;display:grid;gap:.3rem}
+.cart-line-row{display:flex;justify-content:space-between;gap:.5rem}
+.free-progress progress{width:100%;height:.7rem;accent-color:var(--forest)}
+.progress-label{display:flex;justify-content:space-between;color:var(--muted);font-size:.9rem;margin-bottom:.3rem}
+.upsell{border-top:1px solid var(--line);padding-top:.75rem}
+.upsell button{margin:.25rem .25rem 0 0}
+.cart-total{display:flex;justify-content:space-between;font-size:1.2rem;font-weight:800;border-top:1px solid var(--line);padding-top:.75rem}
+
+/* Modal checkout */
+.modal{position:fixed;inset:0;background:rgba(12,29,18,.55);z-index:90;display:none;place-items:center;padding:1rem}
+.modal.open{display:grid}
+.modal-card{width:min(560px,100%);background:var(--cream);border-radius:var(--radius);padding:1.25rem;display:grid;gap:.6rem;border:1px solid var(--line);box-shadow:var(--shadow);max-height:92vh;overflow:auto}
+.modal-card label{font-weight:700;font-size:.92rem;margin-top:.2rem}
+.modal-card input,.modal-card select,.modal-card textarea{width:100%}
+.payment-options{display:flex;flex-wrap:wrap;gap:.5rem}
+.payment-options button[role="radio"]{border:1px solid var(--line);background:#fff;border-radius:999px;padding:.6rem .9rem;font-weight:700;cursor:pointer;transition:background .18s}
+.payment-options button[aria-checked="true"]{background:var(--forest);color:#fff;border-color:var(--forest)}
+fieldset{border:0;padding:0;margin:0}
+legend{font-weight:700;font-size:.92rem;margin-bottom:.4rem}
+
+/* Bouton flottant WhatsApp */
+.whatsapp-fab{position:fixed;inset-inline-end:1.2rem;bottom:1.2rem;width:58px;height:58px;border-radius:50%;background:var(--wa);color:#fff;display:grid;place-items:center;font-size:1.7rem;font-weight:900;box-shadow:0 0 0 0 rgba(37,211,102,.6);animation:pulse 2.4s infinite;z-index:70;text-decoration:none}
+@keyframes pulse{70%{box-shadow:0 0 0 18px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+@media (prefers-reduced-motion:reduce){.whatsapp-fab{animation:none}}

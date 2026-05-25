@@ -1,0 +1,49 @@
+/* Variables design AHADO EXPRESS — refonte 2026 (Rubik + Nunito Sans) */
+:root{
+  /* Marque */
+  --cream:#faf8f2;
+  --cream-2:#f3efe3;
+  --forest:#15703a;
+  --forest-dark:#0c3d22;
+  --forest-soft:#e7f1ea;
+  --gold:#f4c54a;
+  --gold-soft:#fff5d4;
+  --ink:#13201a;
+  --muted:#5c6b62;
+  --card:#ffffff;
+  --line:#e7e2d4;
+  --wa:#25D366;
+  --danger:#b42318;
+  /* Formes & ombres */
+  --shadow:0 24px 70px rgba(21,112,58,.12);
+  --shadow-sm:0 8px 24px rgba(19,32,26,.06);
+  --radius:28px;
+  --radius-md:22px;
+  --radius-sm:14px;
+  /* Rythme d'espacement (4/8) */
+  --space:clamp(1rem,2vw,1.5rem);
+  /* Typographie */
+  --font-sans:"Nunito Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-head:"Rubik","Nunito Sans",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+body{
+  background:
+    radial-gradient(60rem 40rem at 100% -10%, var(--gold-soft) 0, transparent 55%),
+    radial-gradient(50rem 40rem at -10% 0%, var(--forest-soft) 0, transparent 50%),
+    var(--cream);
+  color:var(--ink);
+  font-family:var(--font-sans);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+/* Rubik couvre l'arabe : on garde la même police en RTL */
+body[dir="rtl"]{font-family:"Rubik","Nunito Sans",Tahoma,sans-serif}
+h1,h2,h3{font-family:var(--font-head);letter-spacing:-.02em}
+:focus-visible{outline:3px solid var(--forest);outline-offset:2px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+.skip-link{position:absolute;left:1rem;top:-3rem;background:var(--forest);color:#fff;padding:.6rem 1rem;border-radius:999px;z-index:200;transition:top .2s}
+.skip-link:focus{top:1rem}
