@@ -2024,35 +2024,39 @@
       "name": "Vista 1121 Étuvé",
       "popular": false,
       "icon": "🌾",
-      "image": "photos/vista-1121-etuve.webp"
+      "image": "photos/vista-1121-etuve.webp",
+      "label1": "Sac 5 Kg",
+      "price1": 1800,
+      "label2": "5 sacs (25 Kg)",
+      "price2": 8750,
+      "label3": "10 sacs (50 Kg)",
+      "price3": 17000
     },
     {
       "cat": "Autres",
       "name": "Nura Ketchup 340g",
       "popular": false,
       "icon": "🍅",
-      "image": "photos/nura-ketchup-340g.webp"
+      "image": "photos/nura-ketchup-340g.webp",
+      "label1": "Bouteille 340g",
+      "price1": 400,
+      "label2": "Pack (×6)",
+      "price2": 2300,
+      "label3": "Pack (×12)",
+      "price3": 4500
     },
     {
       "cat": "Nettoyage",
       "name": "Savon Omaar",
       "popular": false,
       "icon": "🧼",
-      "image": "photos/savon-omaar.webp"
-    },
-    {
-      "cat": "Épices",
-      "name": "Poudre verte vrac (à préciser)",
-      "popular": false,
-      "icon": "🌿",
-      "image": "photos/poudre-verte-vrac.webp"
-    },
-    {
-      "cat": "Épices",
-      "name": "Produit séché vrac (à préciser)",
-      "popular": false,
-      "icon": "🌿",
-      "image": "photos/produit-seche-vrac.webp"
+      "image": "photos/savon-omaar.webp",
+      "label1": "Le savon",
+      "price1": 150,
+      "label2": "Pack (×6)",
+      "price2": 850,
+      "label3": "Pack (×12)",
+      "price3": 1650
     }
   ]
 }
