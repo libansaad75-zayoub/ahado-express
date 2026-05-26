@@ -10,3 +10,5 @@ photos/_*.py
 # Captures de debug / test à la racine
 /_*.png
 /_*.html
+# Skills locales (non déployées) — retirer cette ligne pour versionner la skill ISRA
+.claude/
