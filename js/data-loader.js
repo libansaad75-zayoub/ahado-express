@@ -22,14 +22,15 @@ async function fetchFallback(){
 }
 export async function loadCatalog(){
   const cached=JSON.parse(localStorage.getItem(CONFIG.cacheKey)||'null');
-  if(cached && Date.now()-cached.time<CONFIG.cacheTTL) return cached.products;
+  // n'utiliser le cache que s'il contient réellement des produits (évite le "0 produits" collant)
+  if(cached && Array.isArray(cached.products) && cached.products.length && Date.now()-cached.time<CONFIG.cacheTTL) return cached.products;
+  // ne mettre en cache QUE si la liste est non vide
+  const cache=products=>{ if(Array.isArray(products)&&products.length) localStorage.setItem(CONFIG.cacheKey,JSON.stringify({time:Date.now(),products})); return products; };
   try{
     const products=await Promise.race([fetchSheet(),timeout(4000)]);
-    localStorage.setItem(CONFIG.cacheKey,JSON.stringify({time:Date.now(),products}));
-    return products;
+    if(products.length) return cache(products);
+    throw new Error('sheet vide');
   }catch(err){
-    const products=await fetchFallback();
-    localStorage.setItem(CONFIG.cacheKey,JSON.stringify({time:Date.now(),products}));
-    return products;
+    return cache(await fetchFallback());
   }
 }
