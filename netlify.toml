@@ -2,6 +2,18 @@
 [build]
   publish = "."
 
+# Bloquer l'accès public aux fichiers non destinés au web (publish = "." sert tout le dossier)
+[[redirects]]
+  from = "/README.md"
+  to = "/index.html"
+  status = 404
+  force = true
+[[redirects]]
+  from = "/.git/*"
+  to = "/index.html"
+  status = 404
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]
@@ -12,7 +24,8 @@
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
     Cross-Origin-Opener-Policy = "same-origin"
     Cross-Origin-Resource-Policy = "same-origin"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' https://plausible.io; connect-src 'self' https://docs.google.com https://plausible.io; img-src 'self' data:; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
+    # connect-src : docs.google.com retiré tant que le Google Sheet n'est pas branché (à réajouter avec le vrai sheetId)
+    Content-Security-Policy = "default-src 'self'; script-src 'self' https://plausible.io; connect-src 'self' https://plausible.io; img-src 'self' data:; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
 
 [[headers]]
   for = "/images/*"

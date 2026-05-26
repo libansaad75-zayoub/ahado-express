@@ -20,7 +20,15 @@ function injectSchema(products){
 }
 document.addEventListener('DOMContentLoaded',async()=>{
   const lang=getLang(); document.getElementById('lang-select').value=lang; applyI18n(lang); document.getElementById('current-year').textContent=new Date().getFullYear();
-  const products=await loadCatalog(); setProductsForUpsell(products); initCatalog(products); initCheckout(); renderCart(); injectSchema(products); initChat(products);
-  const hc=document.getElementById('hero-product-count'); if(hc) hc.textContent=products.length;
+  let products=[];
+  try{ products=await loadCatalog(); }catch(e){ products=[]; }
+  if(!products.length){
+    const grid=document.getElementById('catalog-grid');
+    if(grid) grid.innerHTML='<p class="catalog-empty">Catalogue momentanément indisponible. Commandez directement sur <a href="https://wa.me/25377788302">WhatsApp</a>.</p>';
+  } else {
+    setProductsForUpsell(products); initCatalog(products);
+  }
+  initCheckout(); renderCart(); injectSchema(products); initChat(products);
+  const hc=document.getElementById('hero-product-count'); if(hc && products.length) hc.textContent=products.length;
   bindCatalogEvents(); bindCartEvents(); bindCheckoutEvents(); bindTrackedLinks(); bindUI(products); bindChatEvents();
 });
