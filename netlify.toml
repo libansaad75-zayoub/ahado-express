@@ -1,18 +1,7 @@
 # Configuration Netlify : sécurité forte + cache statique
+# (le blocage de /README.md et /.git/* est géré dans le fichier _redirects, avec force)
 [build]
   publish = "."
-
-# Bloquer l'accès public aux fichiers non destinés au web (publish = "." sert tout le dossier)
-[[redirects]]
-  from = "/README.md"
-  to = "/index.html"
-  status = 404
-  force = true
-[[redirects]]
-  from = "/.git/*"
-  to = "/index.html"
-  status = 404
-  force = true
 
 [[headers]]
   for = "/*"
