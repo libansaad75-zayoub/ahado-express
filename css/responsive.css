@@ -14,8 +14,11 @@
 }
 @media (max-width:560px){
   .site-header{padding:.5rem}
-  .nav-pill{border-radius:20px}
-  .brand{font-size:1rem}
+  .nav-pill{border-radius:22px;gap:.35rem;padding:.4rem .45rem}
+  .brand{font-size:.9rem;line-height:1.05;min-width:0}
+  .nav-actions{gap:.35rem;flex-shrink:0}
+  .nav-actions .btn{padding:.55rem .7rem;font-size:.84rem}
+  #lang-select{padding:.45rem .5rem;font-size:.84rem;min-width:auto}
   .hero{grid-template-columns:1fr}
   .hero-copy{min-height:auto}
   .hero h1{font-size:2.3rem}

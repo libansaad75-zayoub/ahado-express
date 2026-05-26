@@ -1,24 +1,37 @@
-/* Variables design AHADO EXPRESS — refonte 2026 (Rubik + Nunito Sans) */
+/* Variables design AHADO EXPRESS — direction "Souk joyeux" 2026 (Rubik + Nunito Sans) */
+/* Palette OKLCH : crème chaude + vert forêt vif dominant + or/ambre + accents marché */
 :root{
-  /* Marque */
-  --cream:#faf8f2;
-  --cream-2:#f3efe3;
-  --forest:#15703a;
-  --forest-dark:#0c3d22;
-  --forest-soft:#e7f1ea;
-  --gold:#f4c54a;
-  --gold-soft:#fff5d4;
-  --ink:#13201a;
-  --muted:#5c6b62;
-  --card:#ffffff;
-  --line:#e7e2d4;
-  --wa:#25D366;
-  --danger:#b42318;
-  /* Formes & ombres */
-  --shadow:0 24px 70px rgba(21,112,58,.12);
-  --shadow-sm:0 8px 24px rgba(19,32,26,.06);
-  --radius:28px;
-  --radius-md:22px;
+  /* Surfaces chaudes (jamais de blanc pur) */
+  --cream:oklch(.975 .015 84);
+  --cream-2:oklch(.95 .022 82);
+  --card:oklch(.994 .006 85);
+  --line:oklch(.9 .022 80);
+
+  /* Marque — vert forêt RENDU VIF + profond pour les blocs pleins */
+  --forest:oklch(.57 .16 152);
+  --forest-dark:oklch(.34 .095 154);
+  --forest-soft:oklch(.93 .055 152);
+
+  /* Or / ambre — secondaire fort */
+  --gold:oklch(.82 .15 85);
+  --gold-soft:oklch(.95 .075 88);
+
+  /* Accents de marché (pastilles catégories, badges) */
+  --persimmon:oklch(.66 .19 38);
+  --persimmon-soft:oklch(.93 .065 45);
+  --turquoise:oklch(.72 .12 195);
+  --berry:oklch(.6 .17 350);
+
+  --ink:oklch(.26 .03 155);
+  --muted:oklch(.5 .028 155);
+  --wa:oklch(.76 .17 152);
+  --danger:oklch(.55 .19 27);
+
+  /* Formes & ombres — plus présentes, teintées marque */
+  --shadow:0 26px 70px oklch(.57 .16 152 / .2);
+  --shadow-sm:0 10px 26px oklch(.26 .03 155 / .09);
+  --radius:30px;
+  --radius-md:20px;
   --radius-sm:14px;
   /* Rythme d'espacement (4/8) */
   --space:clamp(1rem,2vw,1.5rem);
@@ -28,11 +41,13 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
+body{overflow-x:hidden}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}}
 body{
   background:
-    radial-gradient(60rem 40rem at 100% -10%, var(--gold-soft) 0, transparent 55%),
-    radial-gradient(50rem 40rem at -10% 0%, var(--forest-soft) 0, transparent 50%),
+    radial-gradient(58rem 42rem at 102% -8%, var(--gold-soft) 0, transparent 52%),
+    radial-gradient(48rem 40rem at -8% 2%, var(--forest-soft) 0, transparent 48%),
+    radial-gradient(40rem 36rem at 50% 120%, var(--persimmon-soft) 0, transparent 55%),
     var(--cream);
   color:var(--ink);
   font-family:var(--font-sans);
@@ -42,7 +57,7 @@ body{
 }
 /* Rubik couvre l'arabe : on garde la même police en RTL */
 body[dir="rtl"]{font-family:"Rubik","Nunito Sans",Tahoma,sans-serif}
-h1,h2,h3{font-family:var(--font-head);letter-spacing:-.02em}
+h1,h2,h3{font-family:var(--font-head);font-weight:800;letter-spacing:-.03em}
 :focus-visible{outline:3px solid var(--forest);outline-offset:2px;border-radius:6px}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
 .skip-link{position:absolute;left:1rem;top:-3rem;background:var(--forest);color:#fff;padding:.6rem 1rem;border-radius:999px;z-index:200;transition:top .2s}
