@@ -5,6 +5,7 @@ import {bindCartEvents,renderCart,setProductsForUpsell,addToCart} from './cart.j
 import {initCheckout,bindCheckoutEvents} from './checkout.js';
 import {applyI18n,getLang} from './i18n.js';
 import {bindTrackedLinks} from './analytics.js';
+import {initChat,bindChatEvents} from './chat.js';
 function bindUI(products){
   const drawer=document.getElementById('cart-drawer');
   document.getElementById('cart-open').addEventListener('click',()=>{drawer.classList.add('open');drawer.setAttribute('aria-hidden','false');});
@@ -19,7 +20,7 @@ function injectSchema(products){
 }
 document.addEventListener('DOMContentLoaded',async()=>{
   const lang=getLang(); document.getElementById('lang-select').value=lang; applyI18n(lang); document.getElementById('current-year').textContent=new Date().getFullYear();
-  const products=await loadCatalog(); setProductsForUpsell(products); initCatalog(products); initCheckout(); renderCart(); injectSchema(products);
+  const products=await loadCatalog(); setProductsForUpsell(products); initCatalog(products); initCheckout(); renderCart(); injectSchema(products); initChat(products);
   const hc=document.getElementById('hero-product-count'); if(hc) hc.textContent=products.length;
-  bindCatalogEvents(); bindCartEvents(); bindCheckoutEvents(); bindTrackedLinks(); bindUI(products);
+  bindCatalogEvents(); bindCartEvents(); bindCheckoutEvents(); bindTrackedLinks(); bindUI(products); bindChatEvents();
 });

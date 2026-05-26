@@ -105,6 +105,23 @@
     </form>
   </div>
 
+  <button id="chat-fab" class="chat-fab" type="button" aria-label="Ouvrir l'assistant de commande" aria-expanded="false">💬</button>
+  <section id="chat-panel" class="chat-panel" aria-label="Assistant de commande AHADO EXPRESS">
+    <div class="chat-head">
+      <span class="chat-avatar-lg" aria-hidden="true">AE</span>
+      <div class="chat-head-info">
+        <strong>Assistant AHADO</strong>
+        <span class="chat-status"><span class="chat-dot" aria-hidden="true"></span>En ligne · répond tout de suite</span>
+      </div>
+      <button id="chat-close" class="icon-btn chat-close" type="button" aria-label="Fermer l'assistant">×</button>
+    </div>
+    <div id="chat-messages" class="chat-messages" aria-live="polite"></div>
+    <div class="chat-input-area">
+      <input id="chat-input" type="text" placeholder="Écrivez votre commande…" autocomplete="off" aria-label="Votre message">
+      <button id="chat-send" class="chat-send" type="button" aria-label="Envoyer">↑</button>
+    </div>
+  </section>
+
   <a class="whatsapp-fab" href="https://wa.me/25377788302" aria-label="Commander sur WhatsApp" data-track="WhatsApp_FAB_Click">✆</a>
 
   <footer id="contact" class="site-footer">
