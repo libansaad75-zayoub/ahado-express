@@ -4,13 +4,13 @@
 import {CONFIG} from './config.js';
 import {addToCart, getCart, cartTotal} from './cart.js';
 import {trackEvent} from './analytics.js';
+import {esc, openDialog, closeDialog} from './utils.js';
 
 let products = [];
 let opened = false;
 
 // Normalisation insensible aux accents/casse
 const norm = s => String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
-const esc = s => String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 
 // Quelques synonymes courants → catégorie du catalogue
 const SYNONYMS = {
@@ -136,9 +136,7 @@ function handleInput(text) {
 function finalize() {
   const btn = el('checkout-open');
   if (!btn) return;
-  if (el('chat-panel')) el('chat-panel').classList.remove('open');
-  opened = false;
-  if (el('chat-fab')) el('chat-fab').setAttribute('aria-expanded', 'false');
+  toggle(false); // ferme le chat proprement (libère le focus-trap)
   btn.click(); // réutilise le checkout existant (nom/quartier/paiement → wa.me)
 }
 
@@ -149,11 +147,15 @@ function toggle(force) {
   opened = force !== undefined ? force : !opened;
   panel.classList.toggle('open', opened);
   fab.setAttribute('aria-expanded', String(opened));
-  if (opened && !el('chat-messages').childElementCount) {
-    botSay('Bonjour 👋 Je suis l\'assistant AHADO EXPRESS.');
-    botSay('Dites-moi ce que vous voulez commander (ex. « riz », « 2 huile », « coca »), je remplis votre panier.');
+  if (opened) {
+    if (!el('chat-messages').childElementCount) {
+      botSay('Bonjour 👋 Je suis l\'assistant AHADO EXPRESS.');
+      botSay('Dites-moi ce que vous voulez commander (ex. « riz », « 2 huile », « coca »), je remplis votre panier.');
+    }
+    openDialog(panel, () => toggle(false), el('chat-input')); // focus-trap + Échap
+  } else {
+    closeDialog();
   }
-  if (opened) setTimeout(() => el('chat-input')?.focus(), 50);
 }
 
 export function bindChatEvents() {

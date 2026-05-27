@@ -1,5 +1,6 @@
 // Rendu catalogue, filtres catégories et recherche — cartes emoji
 import {addToCart} from './cart.js';
+import {esc} from './utils.js';
 let products=[]; let activeCat='Tous'; let query='';
 const productId=(p,v)=>`${p.name}-${v.label}`.replace(/\s+/g,'-').toLowerCase();
 
@@ -28,18 +29,18 @@ export function renderCatalog(){
     const hasPhoto=p.image&&!/placeholder/.test(p.image);
     return `
     <article class="product-card">
-      <div class="product-media ${hasPhoto?'has-photo':''}" style="${tileStyle(p.cat)}" role="img" aria-label="${p.name}">
-        ${hasPhoto?`<img class="product-photo" src="${p.image}" alt="${p.name}" loading="lazy" decoding="async">`:`<span class="product-emoji">${p.icon||'🛒'}</span>`}
+      <div class="product-media ${hasPhoto?'has-photo':''}" style="${tileStyle(p.cat)}" ${hasPhoto?'':`role="img" aria-label="${esc(p.name)}"`}>
+        ${hasPhoto?`<img class="product-photo" src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy" decoding="async">`:`<span class="product-emoji">${esc(p.icon||'🛒')}</span>`}
         ${p.popular?'<span class="badge">⭐ Populaire</span>':''}
       </div>
       <div class="product-body">
-        <p class="product-cat">${p.cat}</p>
-        <h3 class="product-name">${p.name}</h3>
+        <p class="product-cat">${esc(p.cat)}</p>
+        <h3 class="product-name">${esc(p.name)}</h3>
         <div class="variants">
           ${p.variants.slice(0,1).map(v=>`<div class="variant-row">
-            <span class="variant-label">${v.label}</span>
+            <span class="variant-label">${esc(v.label)}</span>
             <strong class="price">${Number(v.price).toLocaleString('fr-FR')} FDJ</strong>
-            <button class="btn btn-add" data-add='${JSON.stringify({id:productId(p,v),name:p.name,label:v.label,price:Number(v.price)}).replace(/'/g,'&apos;')}' aria-label="Ajouter ${p.name} ${v.label} au panier">+</button>
+            <button class="btn btn-add" data-add='${esc(JSON.stringify({id:productId(p,v),name:p.name,label:v.label,price:Number(v.price)}))}' aria-label="Ajouter ${esc(p.name)} ${esc(v.label)} au panier">+</button>
           </div>`).join('')}
         </div>
       </div>

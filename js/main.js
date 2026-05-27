@@ -6,10 +6,12 @@ import {initCheckout,bindCheckoutEvents} from './checkout.js';
 import {applyI18n,getLang} from './i18n.js';
 import {bindTrackedLinks} from './analytics.js';
 import {initChat,bindChatEvents} from './chat.js';
+import {openDialog,closeDialog} from './utils.js';
 function bindUI(products){
   const drawer=document.getElementById('cart-drawer');
-  document.getElementById('cart-open').addEventListener('click',()=>{drawer.classList.add('open');drawer.setAttribute('aria-hidden','false');});
-  document.getElementById('cart-close').addEventListener('click',()=>{drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true');});
+  const closeCart=()=>{drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true');closeDialog();};
+  document.getElementById('cart-open').addEventListener('click',()=>{drawer.classList.add('open');drawer.setAttribute('aria-hidden','false');openDialog(drawer,closeCart);});
+  document.getElementById('cart-close').addEventListener('click',closeCart);
   document.getElementById('lang-select').addEventListener('change',e=>applyI18n(e.target.value));
   document.addEventListener('click',e=>{const b=e.target.closest('[data-upsell]'); if(!b)return; const p=products.find(x=>x.name===b.dataset.upsell); if(p&&p.variants[0]) addToCart({id:`${p.name}-${p.variants[0].label}`.replace(/\s+/g,'-').toLowerCase(),name:p.name,label:p.variants[0].label,price:p.variants[0].price});});
 }

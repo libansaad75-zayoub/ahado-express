@@ -12,7 +12,7 @@
 .btn-soft::before{content:"✆";font-size:1.1em}
 .btn-soft:hover{background:oklch(.79 .17 152);transform:translateY(-2px)}
 .full{width:100%}
-.icon-btn{border:2px solid var(--ink);background:var(--card);border-radius:999px;width:42px;height:42px;font-size:1.4rem;cursor:pointer;transition:background .18s}
+.icon-btn{border:2px solid var(--ink);background:var(--card);border-radius:999px;width:44px;height:44px;font-size:1.4rem;cursor:pointer;transition:background .18s}
 .icon-btn:hover{background:var(--cream-2)}
 
 /* Champs */
@@ -52,7 +52,7 @@
 .variant-row{display:flex;align-items:center;gap:.5rem;min-width:0;background:var(--cream);border:1.5px solid var(--line);border-radius:999px;padding:.3rem .35rem .3rem .9rem}
 .variant-label{font-size:.9rem;color:var(--muted);font-weight:700;min-width:0;overflow-wrap:break-word;word-break:break-word}
 .price{font-weight:800;color:var(--forest);margin-inline-start:auto;font-variant-numeric:tabular-nums;white-space:nowrap}
-.btn-add{background:var(--forest);color:#fff;width:36px;height:36px;min-width:36px;padding:0;font-size:1.4rem;border-radius:999px;flex-shrink:0;box-shadow:0 6px 14px oklch(.57 .16 152 / .4)}
+.btn-add{background:var(--forest);color:#fff;width:44px;height:44px;min-width:44px;padding:0;font-size:1.4rem;border-radius:999px;flex-shrink:0;box-shadow:0 6px 14px oklch(.57 .16 152 / .4)}
 .btn-add:hover{background:var(--forest-dark);transform:scale(1.08)}
 .catalog-empty{color:var(--muted);grid-column:1/-1;padding:2rem 0}
 
@@ -118,9 +118,9 @@ legend{font-weight:800;font-size:.92rem;margin-bottom:.4rem}
 .chat-finalize{margin-top:.6rem;width:100%;background:var(--gold);color:var(--forest-dark);border:0;border-radius:999px;padding:.55rem;font-weight:800;cursor:pointer;font-family:var(--font-head)}
 .chat-finalize:hover{filter:brightness(1.04)}
 .chat-input-area{display:flex;align-items:center;gap:.5rem;padding:.7rem;border-top:1px solid var(--line);background:var(--card)}
-.chat-input-area input{flex:1;border:1px solid var(--line);background:var(--cream);border-radius:999px;padding:.55rem .9rem;font-size:.9rem;font-family:var(--font-sans);outline:none}
-.chat-input-area input:focus{border-color:var(--forest)}
-.chat-send{background:var(--gold);color:var(--forest-dark);border:0;width:38px;height:38px;border-radius:50%;font-size:1.1rem;font-weight:800;cursor:pointer;flex-shrink:0}
+.chat-input-area input{flex:1;border:1px solid var(--line);background:var(--cream);border-radius:999px;padding:.55rem .9rem;font-size:.9rem;font-family:var(--font-sans)}
+.chat-input-area input:focus-visible{border-color:var(--forest);outline:3px solid var(--forest);outline-offset:1px}
+.chat-send{background:var(--gold);color:var(--forest-dark);border:0;width:44px;height:44px;border-radius:50%;font-size:1.1rem;font-weight:800;cursor:pointer;flex-shrink:0}
 @media (max-width:480px){.chat-panel{inset-inline:.8rem;width:auto;bottom:calc(1.2rem + 70px);height:min(72vh,560px)}}
 
 /* Pages légales (CGV, confidentialité, mentions) */
