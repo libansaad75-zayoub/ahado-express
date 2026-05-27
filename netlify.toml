@@ -3,6 +3,10 @@
 [build]
   publish = "."
 
+# Backend de l'assistant IA (Gemini) — clé GEMINI_API_KEY à poser dans Netlify (Environment variables)
+[functions]
+  directory = "netlify/functions"
+
 [[headers]]
   for = "/*"
   [headers.values]
