@@ -10,16 +10,27 @@
 
 .section{max-width:1180px;margin:0 auto;padding:clamp(2rem,6vw,4.5rem) 1rem}
 
-/* Hero bento — bloc principal PLEIN (vert vif drenched) */
-.hero{display:grid;grid-template-columns:2fr 1fr 1fr;gap:1rem}
-.hero>*{min-width:0}
+/* Hero — un seul bloc plein (vert vif drenched), épuré */
+.hero{display:block}
 .bento-card{background:var(--card);border:2px solid var(--ink);border-radius:var(--radius);padding:var(--space);box-shadow:var(--shadow-sm)}
-.hero-copy{grid-row:span 2;min-height:420px;display:flex;flex-direction:column;justify-content:center;color:var(--cream);background:
-  radial-gradient(36rem 24rem at 110% -10%, oklch(.82 .15 85 / .35) 0, transparent 60%),
+.hero-copy{border-radius:var(--radius);padding:clamp(1.85rem,4.8vw,3.75rem);display:flex;flex-direction:column;justify-content:center;color:var(--cream);background:
+  radial-gradient(42rem 28rem at 108% -12%, oklch(.82 .15 85 / .35) 0, transparent 58%),
+  radial-gradient(36rem 30rem at -8% 120%, oklch(.72 .12 195 / .22) 0, transparent 60%),
   linear-gradient(155deg, var(--forest) 0%, var(--forest-dark) 100%);
-  border-color:var(--forest-dark);box-shadow:var(--shadow)}
-.hero h1{font:800 clamp(2.5rem,5.6vw,5rem)/.98 var(--font-head);letter-spacing:-.045em;max-width:860px;margin:.5rem 0;color:var(--cream)}
-.hero-copy p{max-width:650px;color:oklch(.975 .015 84 / .82);font-size:1.12rem}
+  box-shadow:var(--shadow)}
+.hero h1{font:800 clamp(2.5rem,5.6vw,5rem)/.98 var(--font-head);letter-spacing:-.045em;max-width:18ch;margin:.5rem 0;color:var(--cream)}
+.hero-sub{max-width:60ch;color:oklch(.975 .015 84 / .82);font-size:1.12rem}
+
+/* Ligne de stats fine (remplace les cartes encadrées) */
+.hero-stats{display:flex;align-items:center;gap:.95rem;flex-wrap:wrap;margin:1.5rem 0 0;max-width:none}
+.hero-stat{display:inline-flex;align-items:baseline;gap:.4rem;font-weight:700;font-size:1rem;color:oklch(.975 .015 84 / .9)}
+.hero-stat strong{font-family:var(--font-head);font-weight:800;font-size:1.55rem;color:var(--gold)}
+.hero-stats-sep{width:5px;height:5px;border-radius:50%;background:oklch(.975 .015 84 / .45)}
+
+/* Ligne de confiance paiements — pastilles légères translucides (pas de cadre lourd) */
+.hero-pay{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;margin-top:1.15rem}
+.hero-pay-label{font-size:.78rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:oklch(.975 .015 84 / .68);margin-inline-end:.25rem}
+.pay-chip{font-size:.8rem;font-weight:700;padding:.32rem .68rem;border-radius:999px;background:oklch(.975 .015 84 / .14);color:var(--cream)}
 .eyebrow{text-transform:uppercase;letter-spacing:.16em;color:var(--forest);font-weight:800;font-size:.78rem}
 .hero-copy .eyebrow{color:var(--gold)}
 .hero-actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.6rem}
