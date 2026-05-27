@@ -50,7 +50,7 @@ Liste des produits disponibles :
 ${list}
 
 Réponds STRICTEMENT en JSON valide, sans texte autour :
-{"reply": "<ta réponse au client>", "items": [{"name":"<nom EXACT de la liste>","qty":<entier>}], "action": "add" | "checkout" | "none"}
+{"reply": "<ta réponse au client>", "items": [{"name":"<nom EXACT du produit, SANS la catégorie entre crochets>","qty":<entier>}], "action": "add" | "checkout" | "none"}
 - "items" = produits à ajouter au panier (tableau vide si aucun).
 - "action" = "checkout" si le client veut finaliser/payer/commander ; "add" si tu ajoutes des produits ; sinon "none".`;
 
@@ -78,7 +78,7 @@ Réponds STRICTEMENT en JSON valide, sans texte autour :
       mode: 'ai',
       reply: String(parsed.reply || ''),
       items: Array.isArray(parsed.items)
-        ? parsed.items.slice(0, 20).map(i => ({ name: String(i.name || ''), qty: Math.max(1, Math.min(50, parseInt(i.qty, 10) || 1)) }))
+        ? parsed.items.slice(0, 20).map(i => ({ name: String(i.name || '').replace(/\s*\[[^\]]*\]\s*$/, '').trim(), qty: Math.max(1, Math.min(50, parseInt(i.qty, 10) || 1)) }))
         : [],
       action: ['add', 'checkout', 'none'].includes(parsed.action) ? parsed.action : 'none',
     });

@@ -137,7 +137,8 @@ async function tryAI(text) {
     history = history.slice(-8);
     let added = 0;
     (data.items || []).forEach(it => {
-      const p = products.find(x => norm(x.name) === norm(it.name));
+      const clean = String(it.name || '').replace(/\s*\[[^\]]*\]\s*$/, '').trim();
+      const p = products.find(x => norm(x.name) === norm(clean));
       const v = p?.variants?.[0];
       if (p && v) { addVariantToCart(p, v, it.qty || 1); added++; }
     });
