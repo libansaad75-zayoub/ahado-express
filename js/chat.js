@@ -8,6 +8,8 @@ import {esc, openDialog, closeDialog} from './utils.js';
 
 let products = [];
 let opened = false;
+let history = [];        // historique de conversation pour l'IA
+let aiAvailable = true;  // passe à false si la fonction renvoie "mock" (pas de clé) → repli Phase 1
 
 // Normalisation insensible aux accents/casse
 const norm = s => String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
@@ -44,6 +46,16 @@ function pushMessage(role, innerHTML) {
 const botSay = text => pushMessage('bot', `<div class="chat-bubble">${esc(text)}</div>`);
 const botHTML = html => pushMessage('bot', html);
 const userSay = text => pushMessage('user', `<div class="chat-bubble">${esc(text)}</div>`);
+
+function showTyping() {
+  const wrap = el('chat-messages'); if (!wrap) return null;
+  const m = document.createElement('div');
+  m.className = 'chat-msg chat-msg-bot';
+  m.innerHTML = '<span class="chat-avatar" aria-hidden="true">AE</span><div class="chat-bubble chat-typing">…</div>';
+  wrap.appendChild(m); wrap.scrollTop = wrap.scrollHeight;
+  return m;
+}
+const removeTyping = m => m && m.remove();
 
 /* ---------- matching catalogue ---------- */
 function categoriesIn(text) {
@@ -99,6 +111,43 @@ function proposeProducts(list, qty) {
   }).join('');
   botHTML(`<div class="chat-bubble">Voici ce que j'ai trouvé, lequel voulez-vous ?
       <div class="chat-chips">${chips}</div></div>`);
+}
+
+// Aiguillage : tente l'IA (Netlify Function + Gemini) puis retombe sur le chat guidé.
+async function handleMessage(text) {
+  if (aiAvailable && await tryAI(text)) return;
+  handleInput(text); // repli : compréhension par mots-clés (Phase 1)
+}
+
+async function tryAI(text) {
+  const typing = showTyping();
+  try {
+    const res = await fetch('/.netlify/functions/chat', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ message: text, history, catalog: products.map(p => ({ name: p.name, cat: p.cat })) }),
+    });
+    removeTyping(typing);
+    if (!res.ok) return false;
+    const data = await res.json();
+    if (data.mode === 'busy') { botSay(data.reply || 'Trop de messages, réessayez dans un instant.'); return true; }
+    if (data.mode !== 'ai') { aiAvailable = false; return false; } // pas de clé/erreur → repli Phase 1
+    if (data.reply) botSay(data.reply);
+    history.push({ role: 'user', text }); history.push({ role: 'model', text: data.reply || '' });
+    history = history.slice(-8);
+    let added = 0;
+    (data.items || []).forEach(it => {
+      const p = products.find(x => norm(x.name) === norm(it.name));
+      const v = p?.variants?.[0];
+      if (p && v) { addVariantToCart(p, v, it.qty || 1); added++; }
+    });
+    if (added) showCart();
+    if (data.action === 'checkout' && getCart().length) finalize();
+    return true;
+  } catch (e) {
+    removeTyping(typing);
+    return false;
+  }
 }
 
 function handleInput(text) {
@@ -180,6 +229,6 @@ export function bindChatEvents() {
     const input = el('chat-input'); const text = input.value.trim();
     if (!text) return;
     userSay(text); input.value = '';
-    handleInput(text);
+    handleMessage(text);
   }
 }
