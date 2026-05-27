@@ -12,3 +12,6 @@ photos/_*.py
 /_*.html
 # Skills locales (non déployées) — retirer cette ligne pour versionner la skill ISRA
 .claude/
+# Artefacts de design impeccable (outil local) — retirer pour les versionner
+DESIGN.md
+.impeccable/
