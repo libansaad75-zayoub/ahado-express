@@ -10,8 +10,11 @@
 
 .section{max-width:1180px;margin:0 auto;padding:clamp(2rem,6vw,4.5rem) 1rem}
 
-/* Hero — un seul bloc plein (vert vif drenched), épuré */
+/* Hero — bloc texte vert + photo boutique (2 colonnes), épuré */
 .hero{display:block}
+.hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:1rem;align-items:stretch}
+.hero-photo{margin:0;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.hero-photo img{display:block;width:100%;height:100%;object-fit:cover;min-height:360px}
 .bento-card{background:var(--card);border:2px solid var(--ink);border-radius:var(--radius);padding:var(--space);box-shadow:var(--shadow-sm)}
 .hero-copy{border-radius:var(--radius);padding:clamp(1.85rem,4.8vw,3.75rem);display:flex;flex-direction:column;justify-content:center;color:var(--cream);background:
   radial-gradient(42rem 28rem at 108% -12%, oklch(.82 .15 85 / .35) 0, transparent 58%),

@@ -3,8 +3,8 @@
   .catalog-grid{grid-template-columns:repeat(3,1fr)}
 }
 @media (max-width:920px){
-  .hero{grid-template-columns:1fr 1fr}
-  .hero-copy{grid-column:1/-1}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-photo img{min-height:200px;max-height:300px}
   .catalog-grid{grid-template-columns:repeat(2,1fr)}
   .grid-3{grid-template-columns:1fr}
   .nav-links{display:none}
