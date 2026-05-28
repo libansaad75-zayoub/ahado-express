@@ -2063,6 +2063,32 @@
       "price2": 850,
       "label3": "Pack (×12)",
       "price3": 1650
+    },
+    {
+      "cat": "Riz",
+      "name": "India Gate Classic",
+      "popular": false,
+      "icon": "🌾",
+      "label1": "Sac 5 Kg",
+      "price1": 2500,
+      "label2": "5 sacs (25 Kg)",
+      "price2": 12250,
+      "label3": "10 sacs (50 Kg)",
+      "price3": 24000,
+      "image": "photos/india-gate-classic-5kg.webp"
+    },
+    {
+      "cat": "Riz",
+      "name": "India Gate Super",
+      "popular": false,
+      "icon": "🌾",
+      "label1": "Sac 5 Kg",
+      "price1": 2000,
+      "label2": "5 sacs (25 Kg)",
+      "price2": 9750,
+      "label3": "10 sacs (50 Kg)",
+      "price3": 19000,
+      "image": "photos/india-gate-super-5kg.webp"
     }
   ]
 }
