@@ -23,7 +23,8 @@
       "label2": "5 sacs (25 Kg)",
       "price2": 7750,
       "label3": "10 sacs (50 Kg)",
-      "price3": 15000
+      "price3": 15000,
+      "image": "photos/jb-basmati.webp"
     },
     {
       "cat": "Riz",
@@ -60,7 +61,8 @@
       "label2": "5 sacs (25 Kg)",
       "price2": 9250,
       "label3": "10 sacs (50 Kg)",
-      "price3": 18000
+      "price3": 18000,
+      "image": "photos/falak.webp"
     },
     {
       "cat": "Riz",
@@ -77,7 +79,7 @@
     },
     {
       "cat": "Riz",
-      "name": "Falak Bazar",
+      "name": "Falak Sella",
       "popular": false,
       "icon": "🌾",
       "label1": "Sac 5 Kg",
@@ -85,7 +87,8 @@
       "label2": "5 sacs (25 Kg)",
       "price2": 9250,
       "label3": "10 sacs (50 Kg)",
-      "price3": 18000
+      "price3": 18000,
+      "image": "photos/falak-sella-5kg.webp"
     },
     {
       "cat": "Riz",
@@ -97,7 +100,8 @@
       "label2": "5 sacs (25 Kg)",
       "price2": 7250,
       "label3": "10 sacs (50 Kg)",
-      "price3": 14000
+      "price3": 14000,
+      "image": "photos/jalal-xxxl-5kg.webp"
     },
     {
       "cat": "Riz",
@@ -219,7 +223,8 @@
       "label2": "Carton complet",
       "price2": 2900,
       "label3": "2 Cartons",
-      "price3": 5700
+      "price3": 5700,
+      "image": "photos/pasta-primo-spaghetti-500g.webp"
     },
     {
       "cat": "Spaghetti",
@@ -1023,7 +1028,8 @@
       "label2": "Pack (×6)",
       "price2": 4000,
       "label3": "Pack (×12)",
-      "price3": 7900
+      "price3": 7900,
+      "image": "photos/fasclean-moyen.webp"
     },
     {
       "cat": "Nettoyage",
