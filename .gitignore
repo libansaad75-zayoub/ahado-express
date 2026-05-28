@@ -7,6 +7,9 @@ node_modules/
 photos/_src/
 photos/_CATALOG.txt
 photos/_*.py
+photos/_*.txt
+# Sauvegardes manuelles (fallback.json.bak, etc.)
+*.bak
 # Captures de debug / test à la racine
 /_*.png
 /_*.html
