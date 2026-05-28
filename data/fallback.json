@@ -66,19 +66,6 @@
     },
     {
       "cat": "Riz",
-      "name": "Falak Premium",
-      "popular": false,
-      "icon": "🌾",
-      "label1": "Sac 5 Kg",
-      "price1": 2200,
-      "label2": "5 sacs (25 Kg)",
-      "price2": 10750,
-      "label3": "10 sacs (50 Kg)",
-      "price3": 21000,
-      "image": "photos/falak-premium.webp"
-    },
-    {
-      "cat": "Riz",
       "name": "Falak Sella",
       "popular": false,
       "icon": "🌾",
@@ -1402,19 +1389,6 @@
       "label3": "10 sacs (50 Kg)",
       "price3": 23000,
       "image": "photos/falak-extreme.webp"
-    },
-    {
-      "cat": "Riz",
-      "name": "Falak Sella",
-      "popular": false,
-      "icon": "🌾",
-      "label1": "Sac 5 Kg",
-      "price1": 2200,
-      "label2": "5 sacs (25 Kg)",
-      "price2": 10750,
-      "label3": "10 sacs (50 Kg)",
-      "price3": 21000,
-      "image": "photos/falak-sella.webp"
     },
     {
       "cat": "Huiles",
