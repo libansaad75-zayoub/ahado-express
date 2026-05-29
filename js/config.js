@@ -5,10 +5,10 @@ export const CONFIG = {
   domain: 'https://ahadoexpress.net',
   whatsappNumber: '25377788302',
   freeDeliveryThreshold: 5000,
-  cacheKey: 'ahado_catalog_cache_v3',
+  cacheKey: 'ahado_catalog_cache_v4',
   cacheTTL: 1000 * 60 * 30,
   // Remplacer par l'identifiant réel du Google Sheet publié en lecture publique
-  sheetId: 'REMPLACER_PAR_GOOGLE_SHEET_ID',
+  sheetId: '1q35ZCsqLcCxMM3Jt39Llap5zHYs_yEWM',
   sheetName: 'Produits',
   districts: ['Balbala','Héron','Plateau du Serpent','Centre-ville','Ambouli','PK12','PK13','PK14','PK15','Hayableh','Barwaqo','Quartier 7','Quartier 6','Quartier 4','Einguella','Gabode','Arhiba','Doraleh','Haramous'],
   payments: ['Cash','Waafi','CAC Pay','D-Money','Saba Pay']

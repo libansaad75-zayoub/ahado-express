@@ -18,3 +18,5 @@ photos/_*.txt
 # Artefacts de design impeccable (outil local) — retirer pour les versionner
 DESIGN.md
 .impeccable/
+/outputs/
+/scripts/

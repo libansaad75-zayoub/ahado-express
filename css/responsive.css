@@ -5,7 +5,7 @@
 @media (max-width:920px){
   .hero-grid{grid-template-columns:1fr}
   .hero-photo img{min-height:200px;max-height:300px}
-  .catalog-grid{grid-template-columns:repeat(2,1fr)}
+  .catalog-grid{grid-template-columns:1fr}
   .grid-3{grid-template-columns:1fr}
   .nav-links{display:none}
   .section-head{align-items:stretch;flex-direction:column}
@@ -22,7 +22,7 @@
   .hero{grid-template-columns:1fr}
   .hero-copy{min-height:auto}
   .hero h1{font-size:2.3rem}
-  .catalog-grid{grid-template-columns:repeat(2,1fr);gap:.7rem}
+  .catalog-grid{grid-template-columns:1fr;gap:.85rem}
   .product-body{padding:.75rem}
   .product-name{font-size:.98rem}
   .cart-drawer{inset-inline:.5rem;top:.5rem;bottom:.5rem;width:auto}

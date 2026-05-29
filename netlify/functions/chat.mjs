@@ -6,14 +6,26 @@
 const MODEL = 'gemini-2.5-flash';
 const WINDOW_MS = 60_000;
 const MAX_REQ = 12;            // messages / minute / IP (best-effort, mémoire de l'instance)
+const MAX_BODY = 50_000;       // évite les requêtes fabriquées trop lourdes
 const MAX_MSG = 500;           // longueur max d'un message client
+const MAX_HISTORY = 8;
+const MAX_CATALOG = 220;
+const MAX_CATALOG_TEXT = 80;
 
 const _hits = new Map();       // ip -> [timestamps]
+const clean = (value, max = MAX_MSG) => String(value || '').replace(/\s+/g, ' ').slice(0, max).trim();
+const clientIp = headers => clean(headers['x-nf-client-connection-ip'] || headers['x-forwarded-for'] || 'anon', 120).split(',')[0].trim() || 'anon';
+
 function rateLimited(ip) {
   const now = Date.now();
   const arr = (_hits.get(ip) || []).filter(t => now - t < WINDOW_MS);
   arr.push(now);
   _hits.set(ip, arr);
+  if (_hits.size > 1000) {
+    for (const [key, hits] of _hits) {
+      if (!hits.some(t => now - t < WINDOW_MS)) _hits.delete(key);
+    }
+  }
   return arr.length > MAX_REQ;
 }
 
@@ -25,16 +37,21 @@ const json = (status, obj) => ({
 
 export const handler = async (event) => {
   if (event.httpMethod !== 'POST') return json(405, { error: 'method' });
+  if (String(event.body || '').length > MAX_BODY) return json(413, { error: 'body too large' });
 
   let body;
   try { body = JSON.parse(event.body || '{}'); } catch { return json(400, { error: 'bad json' }); }
 
-  const message = String(body.message || '').slice(0, MAX_MSG).trim();
+  const message = clean(body.message, MAX_MSG);
   if (!message) return json(400, { error: 'empty' });
-  const history = Array.isArray(body.history) ? body.history.slice(-8) : [];
-  const catalog = Array.isArray(body.catalog) ? body.catalog.slice(0, 300) : [];
+  const history = Array.isArray(body.history)
+    ? body.history.slice(-MAX_HISTORY).map(h => ({ role: h?.role === 'user' ? 'user' : 'model', text: clean(h?.text, MAX_MSG) })).filter(h => h.text)
+    : [];
+  const catalog = Array.isArray(body.catalog)
+    ? body.catalog.slice(0, MAX_CATALOG).map(p => ({ name: clean(p?.name, MAX_CATALOG_TEXT), cat: clean(p?.cat, MAX_CATALOG_TEXT) })).filter(p => p.name)
+    : [];
 
-  const ip = event.headers['x-nf-client-connection-ip'] || event.headers['x-forwarded-for'] || 'anon';
+  const ip = clientIp(event.headers || {});
   if (rateLimited(ip)) return json(429, { mode: 'busy', reply: "Un instant — trop de messages d'un coup. Réessayez dans une minute 🙏" });
 
   const key = process.env.GEMINI_API_KEY;
@@ -55,7 +72,7 @@ Réponds STRICTEMENT en JSON valide, sans texte autour :
 - "action" = "checkout" si le client veut finaliser/payer/commander ; "add" si tu ajoutes des produits ; sinon "none".`;
 
   const contents = [
-    ...history.map(h => ({ role: h.role === 'user' ? 'user' : 'model', parts: [{ text: String(h.text || '').slice(0, MAX_MSG) }] })),
+    ...history.map(h => ({ role: h.role, parts: [{ text: h.text }] })),
     { role: 'user', parts: [{ text: message }] },
   ];
 

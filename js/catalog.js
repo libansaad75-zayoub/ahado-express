@@ -3,6 +3,7 @@ import {addToCart} from './cart.js';
 import {esc} from './utils.js';
 let products=[]; let activeCat='Tous'; let query='';
 const productId=(p,v)=>`${p.name}-${v.label}`.replace(/\s+/g,'-').toLowerCase();
+const norm=s=>String(s??'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
 
 // Teinte stable par catégorie (HSL pastel) pour organiser visuellement le catalogue dense
 function catHue(cat){let h=0;for(let i=0;i<cat.length;i++)h=(h*31+cat.charCodeAt(i))%360;return h;}
@@ -10,13 +11,21 @@ function tileStyle(cat){const h=catHue(cat);return `--tile-bg:hsl(${h} 78% 92%);
 
 export function initCatalog(data){products=data; renderFilters(); renderCatalog();}
 function cats(){return ['Tous',...new Set(products.map(p=>p.cat))];}
-function filtered(){return products.filter(p=>(activeCat==='Tous'||p.cat===activeCat)&&p.name.toLowerCase().includes(query.toLowerCase()));}
+function filtered(){
+  const terms=norm(query).split(/\s+/).filter(Boolean);
+  return products.filter(p=>{
+    if(activeCat!=='Tous'&&p.cat!==activeCat) return false;
+    if(!terms.length) return true;
+    const hay=[p.name,p.cat,p.icon,...p.variants.map(v=>v.label)].map(norm).join(' ');
+    return terms.every(t=>hay.includes(t));
+  });
+}
 
 function renderFilters(){
   const el=document.getElementById('category-filters');
   el.innerHTML=cats().map(c=>{
     const n=c==='Tous'?products.length:products.filter(p=>p.cat===c).length;
-    return `<button class="filter-btn ${c===activeCat?'active':''}" data-cat="${c}" aria-pressed="${c===activeCat}">${c} <span class="filter-count">${n}</span></button>`;
+    return `<button class="filter-btn ${c===activeCat?'active':''}" data-cat="${esc(c)}" aria-pressed="${c===activeCat}">${esc(c)} <span class="filter-count">${n}</span></button>`;
   }).join('');
 }
 
@@ -37,7 +46,7 @@ export function renderCatalog(){
         <p class="product-cat">${esc(p.cat)}</p>
         <h3 class="product-name">${esc(p.name)}</h3>
         <div class="variants">
-          ${p.variants.slice(0,1).map(v=>`<div class="variant-row">
+          ${p.variants.map(v=>`<div class="variant-row">
             <span class="variant-label">${esc(v.label)}</span>
             <strong class="price">${Number(v.price).toLocaleString('fr-FR')} FDJ</strong>
             <button class="btn btn-add" data-add='${esc(JSON.stringify({id:productId(p,v),name:p.name,label:v.label,price:Number(v.price)}))}' aria-label="Ajouter ${esc(p.name)} ${esc(v.label)} au panier">+</button>

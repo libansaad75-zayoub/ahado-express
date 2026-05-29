@@ -60,5 +60,5 @@ body[dir="rtl"]{font-family:"Rubik","Nunito Sans",Tahoma,sans-serif}
 h1,h2,h3{font-family:var(--font-head);font-weight:800;letter-spacing:-.03em}
 :focus-visible{outline:3px solid var(--forest);outline-offset:2px;border-radius:6px}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
-.skip-link{position:absolute;left:1rem;top:-3rem;background:var(--forest);color:#fff;padding:.6rem 1rem;border-radius:999px;z-index:200;transition:top .2s}
+.skip-link{position:absolute;left:1rem;top:-3rem;background:var(--forest);color:var(--cream);padding:.6rem 1rem;border-radius:999px;z-index:200;transition:top .2s}
 .skip-link:focus{top:1rem}
