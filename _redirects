@@ -1,3 +1,9 @@
-/README.md   /index.html   404!
-/.git/*      /index.html   404!
-/*           /index.html   200
+/README.md   /404.html   404!
+/.git/*      /404.html   404!
+/mentions-legales.html /mentions-legales 301!
+/confidentialite.html  /confidentialite  301!
+/cgv.html              /cgv              301!
+/mentions-legales /mentions-legales.html 200
+/confidentialite  /confidentialite.html  200
+/cgv              /cgv.html              200
+/*           /404.html   404

@@ -23,8 +23,8 @@ function orderText(data){
 export function bindCheckoutEvents(){
   const modal=document.getElementById('checkout-modal'),form=document.getElementById('checkout-form');
   const phoneEl=document.getElementById('customer-phone');
-  const closeModal=()=>{modal.classList.remove('open');modal.setAttribute('aria-hidden','true');closeDialog();};
-  document.getElementById('checkout-open').addEventListener('click',()=>{if(!getCart().length){alert('Votre panier est vide.');return;} modal.classList.add('open');modal.setAttribute('aria-hidden','false');openDialog(modal,closeModal,document.getElementById('customer-name'));});
+  const closeModal=()=>{modal.classList.remove('open');modal.setAttribute('aria-hidden','true');modal.inert=true;closeDialog();};
+  document.getElementById('checkout-open').addEventListener('click',()=>{if(!getCart().length){alert('Votre panier est vide.');return;} modal.inert=false;modal.classList.add('open');modal.setAttribute('aria-hidden','false');openDialog(modal,closeModal,document.getElementById('customer-name'));});
   document.getElementById('checkout-close').addEventListener('click',closeModal);
   document.getElementById('payment-options').addEventListener('click',e=>{const b=e.target.closest('[data-payment]'); if(!b)return; payment=b.dataset.payment; document.querySelectorAll('[data-payment]').forEach(x=>x.setAttribute('aria-checked',String(x===b)));});
   phoneEl.addEventListener('input',()=>phoneEl.setCustomValidity(''));

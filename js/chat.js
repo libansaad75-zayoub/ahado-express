@@ -196,6 +196,7 @@ function toggle(force) {
   if (!panel) return;
   opened = force !== undefined ? force : !opened;
   panel.classList.toggle('open', opened);
+  panel.inert = !opened;
   fab.setAttribute('aria-expanded', String(opened));
   if (opened) {
     if (!el('chat-messages').childElementCount) {

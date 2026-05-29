@@ -4,7 +4,9 @@
 }
 @media (max-width:920px){
   .hero-grid{grid-template-columns:1fr}
-  .hero-photo img{min-height:200px;max-height:300px}
+  .hero-copy::after{display:none}
+  .hero-photo{clip-path:none;min-height:230px}
+  .hero-photo img{min-height:230px;max-height:360px}
   .catalog-grid{grid-template-columns:1fr}
   .grid-3{grid-template-columns:1fr}
   .nav-links{display:none}
@@ -21,6 +23,8 @@
   #lang-select{padding:.45rem .5rem;font-size:.84rem;min-width:auto}
   .hero{grid-template-columns:1fr}
   .hero-copy{min-height:auto}
+  .hero-lockup{gap:.9rem;margin-bottom:1.25rem}
+  .hero-mark{border-radius:16px}
   .hero h1{font-size:2.3rem}
   .catalog-grid{grid-template-columns:1fr;gap:.85rem}
   .product-body{padding:.75rem}

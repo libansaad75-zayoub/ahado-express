@@ -5,9 +5,7 @@ let products=[]; let activeCat='Tous'; let query='';
 const productId=(p,v)=>`${p.name}-${v.label}`.replace(/\s+/g,'-').toLowerCase();
 const norm=s=>String(s??'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
 
-// Teinte stable par catégorie (HSL pastel) pour organiser visuellement le catalogue dense
-function catHue(cat){let h=0;for(let i=0;i<cat.length;i++)h=(h*31+cat.charCodeAt(i))%360;return h;}
-function tileStyle(cat){const h=catHue(cat);return `--tile-bg:hsl(${h} 78% 92%);--tile-ring:hsl(${h} 68% 74%)`;}
+const catClass=cat=>`cat-${norm(cat).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'autres'}`;
 
 export function initCatalog(data){products=data; renderFilters(); renderCatalog();}
 function cats(){return ['Tous',...new Set(products.map(p=>p.cat))];}
@@ -38,7 +36,7 @@ export function renderCatalog(){
     const hasPhoto=p.image&&!/placeholder/.test(p.image);
     return `
     <article class="product-card">
-      <div class="product-media ${hasPhoto?'has-photo':''}" style="${tileStyle(p.cat)}" ${hasPhoto?'':`role="img" aria-label="${esc(p.name)}"`}>
+      <div class="product-media ${catClass(p.cat)} ${hasPhoto?'has-photo':''}" ${hasPhoto?'':`role="img" aria-label="${esc(p.name)}"`}>
         ${hasPhoto?`<img class="product-photo" src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy" decoding="async">`:`<span class="product-emoji">${esc(p.icon||'🛒')}</span>`}
         ${p.popular?'<span class="badge">⭐ Populaire</span>':''}
       </div>

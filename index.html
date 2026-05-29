@@ -10,10 +10,17 @@
   <meta property="og:description" content="Courses en ligne, livraison rapide, commande WhatsApp et paiements locaux.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ahadoexpress.net/">
-  <meta property="og:image" content="https://ahadoexpress.net/images/og-ahado.jpg">
+  <meta property="og:image" content="https://ahadoexpress.net/images/og-ahado-fusion.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="AHADO EXPRESS">
   <meta name="twitter:description" content="Service de livraison de courses à Djibouti-Ville.">
+  <meta name="twitter:image" content="https://ahadoexpress.net/images/og-ahado-fusion.jpg">
+  <meta name="theme-color" content="#0f5a3a">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
   <link rel="canonical" href="https://ahadoexpress.net/">
   <link rel="alternate" hreflang="fr" href="https://ahadoexpress.net/?lang=fr">
   <link rel="alternate" hreflang="en" href="https://ahadoexpress.net/?lang=en">
@@ -21,11 +28,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&family=Rubik:wght@500;600;700;800&display=swap">
+  <script defer data-domain="ahadoexpress.net" src="https://plausible.io/js/script.js"></script>
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/layout.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/layout.css?v=hero-fusion-20260529">
+  <link rel="stylesheet" href="css/components.css?v=csp-tiles-20260529">
+  <link rel="stylesheet" href="css/responsive.css?v=hero-fusion-20260529">
 </head>
 <body>
   <a class="skip-link" href="#catalogue">Aller au catalogue</a>
@@ -50,6 +58,10 @@
     <section class="hero section">
       <div class="hero-grid">
       <div class="hero-copy">
+        <div class="hero-lockup" aria-hidden="true">
+          <span class="hero-mark"><span></span></span>
+          <strong>AHADO<br>EXPRESS</strong>
+        </div>
         <p class="eyebrow" data-i18n="hero.eyebrow">Livraison à Djibouti-Ville</p>
         <h1 data-i18n="hero.title">Vos courses livrées vite, simplement, depuis WhatsApp.</h1>
         <p class="hero-sub" data-i18n="hero.subtitle">AHADO EXPRESS aide les familles, boutiques, restaurants, hôtels et cafétérias à commander leurs produits essentiels sans perdre de temps.</p>
@@ -88,18 +100,18 @@
 
     <section id="catalogue" class="section catalog-section">
       <div class="section-head">
-        <div><p class="eyebrow" data-i18n="catalog.eyebrow">Catalogue</p><h2 data-i18n="catalog.title">Produits populaires et essentiels</h2><p class="catalog-meta"><strong id="catalog-count">0</strong> <span data-i18n="catalog.count">produits disponibles</span></p></div>
+        <div><p class="eyebrow" data-i18n="catalog.eyebrow">Catalogue</p><h2 data-i18n="catalog.title">Produits populaires et essentiels</h2><p class="catalog-meta"><strong id="catalog-count">164</strong> <span data-i18n="catalog.count">produits disponibles</span></p></div>
         <div class="search-box">
           <label for="search" class="sr-only" data-i18n="catalog.searchLabel">Rechercher</label>
           <input id="search" type="search" placeholder="Rechercher un produit" aria-label="Rechercher un produit">
         </div>
       </div>
       <div id="category-filters" class="filters" aria-label="Filtres catégories"></div>
-      <div id="catalog-grid" class="catalog-grid" aria-live="polite"></div>
+      <div id="catalog-grid" class="catalog-grid" aria-live="polite"><noscript><p class="catalog-empty">Le catalogue contient 164 produits. Pour commander sans JavaScript, contactez AHADO EXPRESS directement sur <a href="https://wa.me/25377788302">WhatsApp</a>.</p></noscript></div>
     </section>
   </main>
 
-  <aside id="cart-drawer" class="cart-drawer" aria-hidden="true" aria-label="Panier">
+  <aside id="cart-drawer" class="cart-drawer" aria-hidden="true" aria-label="Panier" inert>
     <div class="drawer-head"><h2 data-i18n="cart.title">Votre panier</h2><button id="cart-close" class="icon-btn" aria-label="Fermer le panier">×</button></div>
     <div class="free-progress"><div class="progress-label"><span data-i18n="cart.freeDelivery">Livraison gratuite à 5 000 FDJ</span><strong id="progress-amount">0%</strong></div><progress id="free-progress" value="0" max="5000"></progress></div>
     <div id="cart-items" class="cart-items"></div>
@@ -108,7 +120,7 @@
     <button id="checkout-open" class="btn btn-primary full" data-i18n="cart.checkout">Valider la commande</button>
   </aside>
 
-  <div id="checkout-modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
+  <div id="checkout-modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="checkout-title" inert>
     <form id="checkout-form" class="modal-card">
       <div class="drawer-head"><h2 id="checkout-title" data-i18n="checkout.title">Finaliser</h2><button type="button" id="checkout-close" class="icon-btn" aria-label="Fermer">×</button></div>
       <label for="customer-name" data-i18n="checkout.name">Nom</label><input id="customer-name" required autocomplete="name">
@@ -121,7 +133,7 @@
   </div>
 
   <button id="chat-fab" class="chat-fab" type="button" aria-label="Ouvrir l'assistant de commande" aria-expanded="false">💬</button>
-  <section id="chat-panel" class="chat-panel" aria-label="Assistant de commande AHADO EXPRESS">
+  <section id="chat-panel" class="chat-panel" aria-label="Assistant de commande AHADO EXPRESS" inert>
     <div class="chat-head">
       <span class="chat-avatar-lg" aria-hidden="true">AE</span>
       <div class="chat-head-info">
@@ -142,9 +154,9 @@
   <footer id="contact" class="site-footer">
     <div><strong>AHADO EXPRESS</strong><p data-i18n="footer.text">Livraison de courses à Djibouti-Ville.</p></div>
     <div class="footer-links">
-      <a href="/mentions-legales.html">Mentions légales</a>
-      <a href="/confidentialite.html">Confidentialité</a>
-      <a href="/cgv.html">CGV</a>
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="/confidentialite">Confidentialité</a>
+      <a href="/cgv">CGV</a>
     </div>
     <p>© <span id="current-year"></span> AHADO EXPRESS — Liban Ali. <span data-i18n="footer.rights">Tous droits réservés.</span></p>
   </footer>
