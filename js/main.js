@@ -1,9 +1,9 @@
 // Initialisation globale du site
 import {loadCatalog} from './data-loader.js';
-import {initCatalog,bindCatalogEvents} from './catalog.js';
+import {initCatalog,bindCatalogEvents} from './catalog.js?v=catalog-pro-20260529c';
 import {bindCartEvents,renderCart,setProductsForUpsell,addToCart} from './cart.js';
 import {initCheckout,bindCheckoutEvents} from './checkout.js';
-import {applyI18n,getLang} from './i18n.js';
+import {applyI18n,getLang} from './i18n.js?v=catalog-pro-20260529c';
 import {bindTrackedLinks} from './analytics.js';
 import {initChat,bindChatEvents} from './chat.js';
 import {openDialog,closeDialog} from './utils.js';

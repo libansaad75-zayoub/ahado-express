@@ -35,6 +35,7 @@
   --radius-sm:14px;
   /* Rythme d'espacement (4/8) */
   --space:clamp(1rem,2vw,1.5rem);
+  --page-max:1440px;
   /* Typographie */
   --font-sans:"Nunito Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --font-head:"Rubik","Nunito Sans",system-ui,sans-serif;

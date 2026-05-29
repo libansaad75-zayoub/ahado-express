@@ -21,6 +21,7 @@ function filtered(){
 
 function renderFilters(){
   const el=document.getElementById('category-filters');
+  if(!el) return;
   el.innerHTML=cats().map(c=>{
     const n=c==='Tous'?products.length:products.filter(p=>p.cat===c).length;
     return `<button class="filter-btn ${c===activeCat?'active':''}" data-cat="${esc(c)}" aria-pressed="${c===activeCat}">${esc(c)} <span class="filter-count">${n}</span></button>`;
@@ -34,6 +35,7 @@ export function renderCatalog(){
   if(count) count.textContent=list.length;
   grid.innerHTML=list.map(p=>{
     const hasPhoto=p.image&&!/placeholder/.test(p.image);
+    const primaryVariant=p.variants[0];
     return `
     <article class="product-card">
       <div class="product-media ${catClass(p.cat)} ${hasPhoto?'has-photo':''}" ${hasPhoto?'':`role="img" aria-label="${esc(p.name)}"`}>
@@ -44,18 +46,19 @@ export function renderCatalog(){
         <p class="product-cat">${esc(p.cat)}</p>
         <h3 class="product-name">${esc(p.name)}</h3>
         <div class="variants">
-          ${p.variants.map(v=>`<div class="variant-row">
-            <span class="variant-label">${esc(v.label)}</span>
-            <strong class="price">${Number(v.price).toLocaleString('fr-FR')} FDJ</strong>
-            <button class="btn btn-add" data-add='${esc(JSON.stringify({id:productId(p,v),name:p.name,label:v.label,price:Number(v.price)}))}' aria-label="Ajouter ${esc(p.name)} ${esc(v.label)} au panier">+</button>
-          </div>`).join('')}
+          ${primaryVariant?`<div class="variant-row">
+            <span class="variant-label">${esc(primaryVariant.label)}</span>
+            <strong class="price">${Number(primaryVariant.price).toLocaleString('fr-FR')} FDJ</strong>
+            <button class="btn btn-add" data-add='${esc(JSON.stringify({id:productId(p,primaryVariant),name:p.name,label:primaryVariant.label,price:Number(primaryVariant.price)}))}' aria-label="Ajouter ${esc(p.name)} ${esc(primaryVariant.label)} au panier">+</button>
+          </div>`:''}
         </div>
       </div>
     </article>`;}).join('') || '<p class="catalog-empty">Aucun produit trouvé.</p>';
 }
 
 export function bindCatalogEvents(){
-  document.getElementById('category-filters').addEventListener('click',e=>{const btn=e.target.closest('[data-cat]'); if(!btn)return; activeCat=btn.dataset.cat; renderFilters(); renderCatalog();});
+  const filters=document.getElementById('category-filters');
+  if(filters) filters.addEventListener('click',e=>{const btn=e.target.closest('[data-cat]'); if(!btn)return; activeCat=btn.dataset.cat; renderFilters(); renderCatalog();});
   document.getElementById('search').addEventListener('input',e=>{query=e.target.value; renderCatalog();});
   document.addEventListener('click',e=>{const btn=e.target.closest('[data-add]'); if(btn) addToCart(JSON.parse(btn.dataset.add));});
 }
