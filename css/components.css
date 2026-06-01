@@ -79,6 +79,12 @@ body[dir="rtl"] .cart-drawer{transform:translateX(-120%)}
 .cart-line-row{display:flex;justify-content:space-between;gap:.5rem}
 .free-progress progress{width:100%;height:.8rem;accent-color:var(--forest)}
 .progress-label{display:flex;justify-content:space-between;color:var(--muted);font-size:.9rem;font-weight:700;margin-bottom:.3rem}
+.delivery-info{display:grid;gap:.45rem;background:var(--gold-soft);border:1.5px solid var(--gold);border-radius:var(--radius-sm);padding:.8rem .9rem;color:var(--ink)}
+.delivery-info p{margin:0;display:grid;gap:.1rem}
+.delivery-info strong{font-family:var(--font-head);font-size:.82rem;line-height:1.2;color:oklch(.42 .11 76)}
+.delivery-info span,.delivery-status{font-size:.88rem;line-height:1.35;color:var(--ink)}
+.delivery-status{font-weight:800}
+.checkout-delivery{margin-bottom:.2rem}
 .upsell{border-top:1.5px solid var(--line);padding-top:.75rem}
 .upsell button{margin:.25rem .25rem 0 0}
 .cart-total{display:flex;justify-content:space-between;font-size:1.25rem;font-weight:800;border-top:1.5px solid var(--line);padding-top:.75rem}

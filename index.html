@@ -63,11 +63,29 @@
           <strong>AHADO<br>EXPRESS</strong>
         </div>
         <p class="eyebrow" data-i18n="hero.eyebrow">Livraison à Djibouti-Ville</p>
+        <ul class="hero-promises" aria-label="Promesses AHADO EXPRESS" data-i18n-aria="hero.promisesLabel">
+          <li>
+            <span class="promise-mark" aria-hidden="true">164</span>
+            <span><strong data-i18n="hero.promiseStockTitle">Stock prêt</strong><small data-i18n="hero.promiseStockText">produits essentiels visibles</small></span>
+          </li>
+          <li>
+            <span class="promise-mark" aria-hidden="true">19</span>
+            <span><strong data-i18n="hero.promiseZoneTitle">Quartiers servis</strong><small data-i18n="hero.promiseZoneText">zone Djibouti-Ville claire</small></span>
+          </li>
+          <li>
+            <span class="promise-mark" aria-hidden="true">FDJ</span>
+            <span><strong data-i18n="hero.promisePayTitle">Paiements locaux</strong><small data-i18n="hero.promisePayText">Cash, Waafi, CAC Pay, D-Money</small></span>
+          </li>
+          <li>
+            <span class="promise-mark" aria-hidden="true">WA</span>
+            <span><strong data-i18n="hero.promiseWhatsAppTitle">WhatsApp direct</strong><small data-i18n="hero.promiseWhatsAppText">commande pré-remplie</small></span>
+          </li>
+        </ul>
         <h1 data-i18n="hero.title">Vos courses livrées vite, simplement, depuis WhatsApp.</h1>
         <p class="hero-sub" data-i18n="hero.subtitle">AHADO EXPRESS aide les familles, boutiques, restaurants, hôtels et cafétérias à commander leurs produits essentiels sans perdre de temps.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#catalogue" data-i18n="hero.cta">Commander maintenant</a>
-          <a class="btn btn-soft" href="https://wa.me/25377788302" data-track="WhatsApp_FAB_Click">WhatsApp</a>
+          <a class="btn btn-soft" href="https://wa.me/25377788302" data-track="WhatsApp_FAB_Click" data-i18n="hero.whatsapp">WhatsApp</a>
         </div>
         <p class="hero-stats">
           <span class="hero-stat"><strong>19</strong> <span data-i18n="hero.districts">quartiers desservis</span></span>
@@ -116,6 +134,11 @@
   <aside id="cart-drawer" class="cart-drawer" aria-hidden="true" aria-label="Panier" inert>
     <div class="drawer-head"><h2 data-i18n="cart.title">Votre panier</h2><button id="cart-close" class="icon-btn" aria-label="Fermer le panier" data-i18n-aria="cart.close">×</button></div>
     <div class="free-progress"><div class="progress-label"><span data-i18n="cart.freeDelivery">Livraison gratuite à 5 000 FDJ</span><strong id="progress-amount">0%</strong></div><progress id="free-progress" value="0" max="5000"></progress></div>
+    <div class="delivery-info">
+      <p><strong data-i18n="delivery.timeTitle">Délai indicatif</strong><span data-i18n="delivery.timeText">45 à 90 min après confirmation WhatsApp.</span></p>
+      <p><strong data-i18n="delivery.feeTitle">Frais</strong><span data-i18n="delivery.feeText">Gratuit dès 5 000 FDJ. Sous 5 000 FDJ, les frais sont confirmés selon le quartier avant validation.</span></p>
+      <p id="delivery-status" class="delivery-status" aria-live="polite"></p>
+    </div>
     <div id="cart-items" class="cart-items"></div>
     <div class="upsell"><h3 data-i18n="cart.upsell">Souvent commandé avec</h3><div id="upsell-list"></div></div>
     <div class="cart-total"><span>Total</span><strong id="cart-total">0 FDJ</strong></div>
@@ -125,6 +148,10 @@
   <div id="checkout-modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="checkout-title" inert>
     <form id="checkout-form" class="modal-card">
       <div class="drawer-head"><h2 id="checkout-title" data-i18n="checkout.title">Finaliser</h2><button type="button" id="checkout-close" class="icon-btn" aria-label="Fermer" data-i18n-aria="checkout.close">×</button></div>
+      <div class="delivery-info checkout-delivery">
+        <p><strong data-i18n="delivery.timeTitle">Délai indicatif</strong><span data-i18n="delivery.timeText">45 à 90 min après confirmation WhatsApp.</span></p>
+        <p><strong data-i18n="delivery.checkoutFeeTitle">Livraison</strong><span data-i18n="delivery.checkoutFeeText">Gratuite dès 5 000 FDJ. Sous ce seuil, AHADO confirme les frais selon votre quartier avant départ.</span></p>
+      </div>
       <label for="customer-name" data-i18n="checkout.name">Nom</label><input id="customer-name" required autocomplete="name">
       <label for="customer-phone" data-i18n="checkout.phone">Téléphone</label><input id="customer-phone" required inputmode="tel" autocomplete="tel" placeholder="77 78 83 02" maxlength="16">
       <label for="district" data-i18n="checkout.district">Quartier</label><select id="district" required></select>

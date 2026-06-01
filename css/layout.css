@@ -28,6 +28,11 @@
 .hero-mark span::after{content:"";position:absolute;left:32%;right:32%;bottom:0;height:18%;background:var(--cream)}
 .hero h1{font:800 clamp(2.5rem,5.6vw,5rem)/.98 var(--font-head);letter-spacing:-.045em;max-width:18ch;margin:.5rem 0;color:var(--cream)}
 .hero-sub{max-width:60ch;color:oklch(.975 .015 84 / .82);font-size:1.12rem}
+.hero-promises{list-style:none;margin:.9rem 0 .7rem;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.55rem;max-width:54rem}
+.hero-promises li{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.65rem;min-width:0;padding:.72rem .8rem;border-radius:var(--radius-md);background:oklch(.975 .015 84 / .12);box-shadow:inset 0 0 0 1px oklch(.975 .015 84 / .18)}
+.promise-mark{display:inline-grid;place-items:center;min-width:2.45rem;height:2.45rem;padding:0 .38rem;border-radius:999px;background:var(--gold);color:oklch(.32 .08 70);font-family:var(--font-head);font-size:.76rem;font-weight:800;letter-spacing:.02em}
+.hero-promises strong{display:block;color:var(--cream);font:800 .9rem/1.12 var(--font-head)}
+.hero-promises small{display:block;margin-top:.12rem;color:oklch(.975 .015 84 / .76);font-size:.78rem;line-height:1.25}
 
 /* Ligne de stats fine (remplace les cartes encadrées) */
 .hero-stats{display:flex;align-items:center;gap:.95rem;flex-wrap:wrap;margin:1.5rem 0 0;max-width:none}
