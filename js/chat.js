@@ -2,7 +2,7 @@
 // Comprend les produits par mots-clés (nom OU catégorie) sur le vrai catalogue,
 // remplit le panier existant, puis passe la main au checkout (lien wa.me).
 import {CONFIG} from './config.js';
-import {addToCart, getCart, cartTotal} from './cart.js?v=photo-first-20260604';
+import {addToCart, getCart, cartTotal} from './cart.js?v=price-sync-20260604';
 import {trackEvent} from './analytics.js';
 import {esc, openDialog, closeDialog} from './utils.js';
 

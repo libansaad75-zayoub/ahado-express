@@ -1,6 +1,6 @@
 // Rendu catalogue, filtres catégories et recherche — cartes emoji
-import {addToCart} from './cart.js?v=photo-first-20260604';
-import {translate} from './i18n.js?v=photo-first-20260604';
+import {addToCart} from './cart.js?v=price-sync-20260604';
+import {translate} from './i18n.js?v=price-sync-20260604';
 import {esc} from './utils.js';
 let products=[]; let activeCat='Tous'; let query='';
 const productId=(p,v)=>`${p.name}-${v.label}`.replace(/\s+/g,'-').toLowerCase();
