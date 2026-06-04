@@ -1,5 +1,5 @@
 // Gestion panier, localStorage, barre livraison gratuite et upsell
-import {CONFIG} from './config.js';
+import {CONFIG} from './config.js?v=price-sync-20260604';
 import {trackEvent} from './analytics.js';
 import {translate} from './i18n.js';
 import {esc} from './utils.js';

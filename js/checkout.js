@@ -1,5 +1,5 @@
 // Modal checkout, validation et generation lien wa.me pre-rempli
-import {CONFIG} from './config.js';
+import {CONFIG} from './config.js?v=price-sync-20260604';
 import {getCart} from './cart.js?v=price-sync-20260604';
 import {trackEvent} from './analytics.js';
 import {esc, openDialog, closeDialog} from './utils.js';

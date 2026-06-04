@@ -1,5 +1,5 @@
 // Chargement Google Sheets gviz avec cache et fallback JSON
-import {CONFIG} from './config.js';
+import {CONFIG} from './config.js?v=price-sync-20260604';
 const timeout = ms => new Promise((_,reject)=>setTimeout(()=>reject(new Error('timeout')),ms));
 function normalizeRow(row){
   return {cat:row.cat||'Autres',name:row.name||'',popular:String(row.popular).toLowerCase()==='true'||row.popular==='⭐',icon:row.icon||'🛒',image:row.image||'images/placeholder.jpg',variants:[['label1','price1'],['label2','price2'],['label3','price3']].map(([l,p])=>({label:row[l],price:Number(row[p])})).filter(v=>v.label&&v.price)};
