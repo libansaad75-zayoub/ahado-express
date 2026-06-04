@@ -1,11 +1,11 @@
 // Initialisation globale du site
-import {loadCatalog} from './data-loader.js?v=gardien-fix-20260601';
-import {initCatalog,bindCatalogEvents} from './catalog.js?v=gardien-fix-20260601';
-import {bindCartEvents,renderCart,setProductsForUpsell,addToCart} from './cart.js?v=gardien-fix-20260601';
-import {initCheckout,bindCheckoutEvents} from './checkout.js?v=gardien-fix-20260601';
-import {applyI18n,getLang} from './i18n.js?v=catalog-pro-20260529c';
+import {loadCatalog} from './data-loader.js?v=photo-first-20260604';
+import {initCatalog,bindCatalogEvents} from './catalog.js?v=photo-first-20260604';
+import {bindCartEvents,renderCart,setProductsForUpsell,addToCart} from './cart.js?v=photo-first-20260604';
+import {initCheckout,bindCheckoutEvents} from './checkout.js?v=photo-first-20260604';
+import {applyI18n,getLang} from './i18n.js?v=photo-first-20260604';
 import {bindTrackedLinks} from './analytics.js';
-import {initChat,bindChatEvents} from './chat.js?v=gardien-fix-20260601';
+import {initChat,bindChatEvents} from './chat.js?v=photo-first-20260604';
 import {openDialog,closeDialog} from './utils.js';
 function bindUI(products){
   const drawer=document.getElementById('cart-drawer');

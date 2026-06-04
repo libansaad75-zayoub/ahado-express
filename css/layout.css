@@ -63,7 +63,7 @@
 .section-head>.eyebrow{grid-area:eyebrow;margin:0}
 .section-head>h2{grid-area:title;margin:0;min-width:0}
 .section-head .search-box{grid-area:search;align-self:center}
-.catalog-meta{grid-area:meta;color:var(--muted);font-weight:700;margin:.3rem 0 0}
+.catalog-meta{grid-area:meta;color:var(--muted);font-weight:700;margin:.3rem 0 0;display:flex;align-items:center;gap:.35rem;flex-wrap:wrap}
 .catalog-meta strong{color:var(--forest);font-family:var(--font-head)}
 .catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));grid-auto-rows:1fr;gap:clamp(1rem,1.8vw,1.35rem);align-items:stretch}
 

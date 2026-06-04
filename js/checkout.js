@@ -1,6 +1,6 @@
 // Modal checkout, validation et generation lien wa.me pre-rempli
 import {CONFIG} from './config.js';
-import {getCart} from './cart.js?v=gardien-fix-20260601';
+import {getCart} from './cart.js?v=photo-first-20260604';
 import {trackEvent} from './analytics.js';
 import {esc, openDialog, closeDialog} from './utils.js';
 
