@@ -12,7 +12,12 @@ const focusablesIn = container => [...container.querySelectorAll(
 )].filter(el => el.offsetParent !== null);
 
 export function openDialog(container, closeFn, focusEl) {
-  closeDialog(); // au cas où un autre serait resté ouvert
+  if (_trap) {
+    const active = _trap;
+    document.removeEventListener('keydown', active.onKey);
+    _trap = null;
+    active.closeFn?.();
+  }
   const onKey = e => {
     if (e.key === 'Escape') { e.preventDefault(); closeFn(); return; }
     if (e.key !== 'Tab') return;
@@ -23,7 +28,7 @@ export function openDialog(container, closeFn, focusEl) {
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   };
   document.addEventListener('keydown', onKey);
-  _trap = { onKey, prev: document.activeElement instanceof HTMLElement ? document.activeElement : null };
+  _trap = { onKey, closeFn, prev: document.activeElement instanceof HTMLElement ? document.activeElement : null };
   setTimeout(() => { (focusEl || focusablesIn(container)[0])?.focus(); }, 30);
 }
 

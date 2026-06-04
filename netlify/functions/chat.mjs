@@ -1,20 +1,39 @@
-// Netlify Function — assistant IA AHADO EXPRESS (Gemini) avec repli mock + anti-abus.
-// Sécurité : la clé reste côté serveur (process.env.GEMINI_API_KEY). Si absente → mode "mock"
-// et le front bascule sur le chat guidé Phase 1. Le modèle ne fixe jamais de prix : le front
-// mappe les noms renvoyés sur le vrai catalogue pour les prix réels.
+// Netlify Function: assistant IA AHADO EXPRESS (Gemini) avec repli mock + anti-abus.
+// La cle Gemini reste cote serveur. Le catalogue est lu cote serveur depuis data/fallback.json.
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const MODEL = 'gemini-2.5-flash';
 const WINDOW_MS = 60_000;
-const MAX_REQ = 12;            // messages / minute / IP (best-effort, mémoire de l'instance)
-const MAX_BODY = 50_000;       // évite les requêtes fabriquées trop lourdes
-const MAX_MSG = 500;           // longueur max d'un message client
+const MAX_REQ = 12;
+const MAX_BODY = 50_000;
+const MAX_MSG = 500;
 const MAX_HISTORY = 8;
-const MAX_CATALOG = 220;
 const MAX_CATALOG_TEXT = 80;
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
-const _hits = new Map();       // ip -> [timestamps]
+const _hits = new Map();
+let _catalog = null;
+
 const clean = (value, max = MAX_MSG) => String(value || '').replace(/\s+/g, ' ').slice(0, max).trim();
-const clientIp = headers => clean(headers['x-nf-client-connection-ip'] || headers['x-forwarded-for'] || 'anon', 120).split(',')[0].trim() || 'anon';
+const lowerHeaders = headers => Object.fromEntries(Object.entries(headers || {}).map(([key, value]) => [String(key).toLowerCase(), value]));
+const clientIp = headers => {
+  const h = lowerHeaders(headers);
+  return clean(h['x-nf-client-connection-ip'] || h['x-forwarded-for'] || 'anon', 120).split(',')[0].trim() || 'anon';
+};
+
+async function loadCatalog() {
+  if (_catalog) return _catalog;
+  const data = JSON.parse(await readFile(path.join(root, 'data/fallback.json'), 'utf8'));
+  _catalog = Array.isArray(data.products)
+    ? data.products.slice(0, 220).map(p => ({
+      name: clean(p?.name, MAX_CATALOG_TEXT),
+      cat: clean(p?.cat, MAX_CATALOG_TEXT)
+    })).filter(p => p.name)
+    : [];
+  return _catalog;
+}
 
 function rateLimited(ip) {
   const now = Date.now();
@@ -29,9 +48,9 @@ function rateLimited(ip) {
   return arr.length > MAX_REQ;
 }
 
-const json = (status, obj) => ({
+const json = (status, obj, headers = {}) => ({
   statusCode: status,
-  headers: { 'content-type': 'application/json' },
+  headers: { 'content-type': 'application/json', ...headers },
   body: JSON.stringify(obj),
 });
 
@@ -47,28 +66,30 @@ export const handler = async (event) => {
   const history = Array.isArray(body.history)
     ? body.history.slice(-MAX_HISTORY).map(h => ({ role: h?.role === 'user' ? 'user' : 'model', text: clean(h?.text, MAX_MSG) })).filter(h => h.text)
     : [];
-  const catalog = Array.isArray(body.catalog)
-    ? body.catalog.slice(0, MAX_CATALOG).map(p => ({ name: clean(p?.name, MAX_CATALOG_TEXT), cat: clean(p?.cat, MAX_CATALOG_TEXT) })).filter(p => p.name)
-    : [];
 
   const ip = clientIp(event.headers || {});
-  if (rateLimited(ip)) return json(429, { mode: 'busy', reply: "Un instant — trop de messages d'un coup. Réessayez dans une minute 🙏" });
+  if (rateLimited(ip)) {
+    return json(429, { mode: 'busy', reply: "Un instant, trop de messages d'un coup. Reessayez dans une minute." }, { 'retry-after': '60' });
+  }
 
   const key = process.env.GEMINI_API_KEY;
-  if (!key) return json(200, { mode: 'mock' }); // pas de clé → repli côté front (chat guidé)
+  if (!key) return json(200, { mode: 'mock' });
 
-  const list = catalog.map(p => `- ${p.name} [${p.cat}]`).join('\n');
-  const sys = `Tu es l'assistant de commande d'AHADO EXPRESS, une épicerie qui livre à Djibouti-Ville.
-Réponds TOUJOURS dans la langue du client (français, arabe, somali ou anglais), de façon chaleureuse et brève (1-2 phrases).
-Tu aides UNIQUEMENT à composer une commande d'épicerie chez AHADO. Refuse poliment tout autre sujet (politique, code, etc.).
+  let catalog;
+  try { catalog = await loadCatalog(); } catch { return json(200, { mode: 'mock' }); }
+
+  const list = catalog.map(p => JSON.stringify(p)).join('\n');
+  const sys = `Tu es l'assistant de commande d'AHADO EXPRESS, une epicerie qui livre a Djibouti-Ville.
+Reponds TOUJOURS dans la langue du client (francais, arabe, somali ou anglais), de facon chaleureuse et breve (1-2 phrases).
+Tu aides UNIQUEMENT a composer une commande d'epicerie chez AHADO. Refuse poliment tout autre sujet.
 Tu ne peux proposer QUE des produits de la liste ci-dessous, avec leur nom EXACT. N'invente JAMAIS un produit ni un prix.
-Si un produit demandé n'est pas dans la liste, dis-le et propose une alternative de la liste.
-Liste des produits disponibles :
+Si un produit demande n'est pas dans la liste, dis-le et propose une alternative de la liste.
+Liste des produits disponibles, un JSON par ligne :
 ${list}
 
-Réponds STRICTEMENT en JSON valide, sans texte autour :
-{"reply": "<ta réponse au client>", "items": [{"name":"<nom EXACT du produit, SANS la catégorie entre crochets>","qty":<entier>}], "action": "add" | "checkout" | "none"}
-- "items" = produits à ajouter au panier (tableau vide si aucun).
+Reponds STRICTEMENT en JSON valide, sans texte autour :
+{"reply": "<ta reponse au client>", "items": [{"name":"<nom EXACT du produit>","qty":<entier>}], "action": "add" | "checkout" | "none"}
+- "items" = produits a ajouter au panier (tableau vide si aucun).
 - "action" = "checkout" si le client veut finaliser/payer/commander ; "add" si tu ajoutes des produits ; sinon "none".`;
 
   const contents = [
@@ -99,7 +120,7 @@ Réponds STRICTEMENT en JSON valide, sans texte autour :
         : [],
       action: ['add', 'checkout', 'none'].includes(parsed.action) ? parsed.action : 'none',
     });
-  } catch (e) {
+  } catch {
     return json(200, { mode: 'mock' });
   }
 };

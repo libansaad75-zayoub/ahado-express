@@ -31,9 +31,9 @@
   <script defer data-domain="ahadoexpress.net" src="https://plausible.io/js/script.js"></script>
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/layout.css?v=catalog-pro-20260529e">
-  <link rel="stylesheet" href="css/components.css?v=catalog-pro-20260529e">
-  <link rel="stylesheet" href="css/responsive.css?v=catalog-pro-20260529e">
+  <link rel="stylesheet" href="css/layout.css?v=gardien-fix-20260601">
+  <link rel="stylesheet" href="css/components.css?v=gardien-fix-20260601">
+  <link rel="stylesheet" href="css/responsive.css?v=gardien-fix-20260601">
 </head>
 <body>
   <a class="skip-link" href="#catalogue">Aller au catalogue</a>
@@ -49,7 +49,7 @@
         <select id="lang-select" aria-label="Changer la langue" data-i18n-aria="lang.change">
           <option value="fr">FR</option><option value="en">EN</option><option value="ar">AR</option>
         </select>
-        <button id="cart-open" class="btn btn-dark" aria-label="Ouvrir le panier" data-i18n-aria="cart.open"><span data-i18n="cart.button">Panier</span> <span id="cart-count">0</span></button>
+        <button id="cart-open" class="btn btn-dark" aria-label="Ouvrir le panier" aria-controls="cart-drawer" data-i18n-aria="cart.open"><span data-i18n="cart.button">Panier</span> <span id="cart-count">0</span></button>
       </div>
     </nav>
   </header>
@@ -118,8 +118,8 @@
     </section>
   </main>
 
-  <aside id="cart-drawer" class="cart-drawer" aria-hidden="true" aria-label="Panier" inert>
-    <div class="drawer-head"><h2 data-i18n="cart.title">Votre panier</h2><button id="cart-close" class="icon-btn" aria-label="Fermer le panier" data-i18n-aria="cart.close">×</button></div>
+  <aside id="cart-drawer" class="cart-drawer" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="cart-title" inert>
+    <div class="drawer-head"><h2 id="cart-title" data-i18n="cart.title">Votre panier</h2><button id="cart-close" class="icon-btn" aria-label="Fermer le panier" data-i18n-aria="cart.close">×</button></div>
     <div class="free-progress"><div class="progress-label"><span data-i18n="cart.freeDelivery">Livraison gratuite à 5 000 FDJ</span><strong id="progress-amount">0%</strong></div><progress id="free-progress" value="0" max="5000"></progress></div>
     <div class="delivery-info">
       <p><strong data-i18n="delivery.timeTitle">Délai indicatif</strong><span data-i18n="delivery.timeText">45 à 90 min après confirmation WhatsApp.</span></p>
@@ -135,25 +135,27 @@
   <div id="checkout-modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="checkout-title" inert>
     <form id="checkout-form" class="modal-card">
       <div class="drawer-head"><h2 id="checkout-title" data-i18n="checkout.title">Finaliser</h2><button type="button" id="checkout-close" class="icon-btn" aria-label="Fermer" data-i18n-aria="checkout.close">×</button></div>
-      <div class="delivery-info checkout-delivery">
-        <p><strong data-i18n="delivery.timeTitle">Délai indicatif</strong><span data-i18n="delivery.timeText">45 à 90 min après confirmation WhatsApp.</span></p>
-        <p><strong data-i18n="delivery.checkoutFeeTitle">Livraison</strong><span data-i18n="delivery.checkoutFeeText">Gratuite dès 5 000 FDJ. Sous ce seuil, AHADO confirme les frais selon votre quartier avant départ.</span></p>
+      <div class="checkout-form-body">
+        <div class="delivery-info checkout-delivery">
+          <p><strong data-i18n="delivery.timeTitle">Délai indicatif</strong><span data-i18n="delivery.timeText">45 à 90 min après confirmation WhatsApp.</span></p>
+          <p><strong data-i18n="delivery.checkoutFeeTitle">Livraison</strong><span data-i18n="delivery.checkoutFeeText">Gratuite dès 5 000 FDJ. Sous ce seuil, AHADO confirme les frais selon votre quartier avant départ.</span></p>
+        </div>
+        <label for="customer-name" data-i18n="checkout.name">Nom</label><input id="customer-name" name="customer_name" required autocomplete="name">
+        <label for="customer-phone" data-i18n="checkout.phone">Téléphone</label><input id="customer-phone" name="phone" type="tel" required inputmode="tel" autocomplete="tel" placeholder="77 78 83 02" maxlength="16">
+        <label for="district" data-i18n="checkout.district">Quartier</label><select id="district" name="district" required></select>
+        <label for="address" data-i18n="checkout.address">Adresse précise</label><textarea id="address" name="address" required rows="3" autocomplete="street-address"></textarea>
+        <fieldset><legend id="payment-legend" data-i18n="checkout.payment">Paiement</legend><div id="payment-options" class="payment-options" role="radiogroup" aria-labelledby="payment-legend"></div></fieldset>
       </div>
-      <label for="customer-name" data-i18n="checkout.name">Nom</label><input id="customer-name" required autocomplete="name">
-      <label for="customer-phone" data-i18n="checkout.phone">Téléphone</label><input id="customer-phone" required inputmode="tel" autocomplete="tel" placeholder="77 78 83 02" maxlength="16">
-      <label for="district" data-i18n="checkout.district">Quartier</label><select id="district" required></select>
-      <label for="address" data-i18n="checkout.address">Adresse précise</label><textarea id="address" required rows="3"></textarea>
-      <fieldset><legend data-i18n="checkout.payment">Paiement</legend><div id="payment-options" class="payment-options"></div></fieldset>
-      <button class="btn btn-primary full" type="submit" data-i18n="checkout.send">Envoyer sur WhatsApp</button>
+      <div class="modal-actions"><button class="btn btn-primary full" type="submit" data-i18n="checkout.send">Envoyer sur WhatsApp</button></div>
     </form>
   </div>
 
-  <button id="chat-fab" class="chat-fab" type="button" aria-label="Ouvrir l'assistant de commande" aria-expanded="false" data-i18n-aria="chat.open">💬</button>
-  <section id="chat-panel" class="chat-panel" aria-label="Assistant de commande AHADO EXPRESS" data-i18n-aria="chat.label" inert>
+  <button id="chat-fab" class="chat-fab" type="button" aria-label="Ouvrir l'assistant de commande" aria-expanded="false" aria-controls="chat-panel" data-i18n-aria="chat.open">💬</button>
+  <section id="chat-panel" class="chat-panel" role="dialog" aria-modal="true" aria-labelledby="chat-title" aria-label="Assistant de commande AHADO EXPRESS" data-i18n-aria="chat.label" inert>
     <div class="chat-head">
       <span class="chat-avatar-lg" aria-hidden="true">AE</span>
       <div class="chat-head-info">
-        <strong data-i18n="chat.title">Assistant AHADO</strong>
+        <strong id="chat-title" data-i18n="chat.title">Assistant AHADO</strong>
         <span class="chat-status"><span class="chat-dot" aria-hidden="true"></span><span data-i18n="chat.status">En ligne · répond tout de suite</span></span>
       </div>
       <button id="chat-close" class="icon-btn chat-close" type="button" aria-label="Fermer l'assistant" data-i18n-aria="chat.close">×</button>
@@ -177,6 +179,6 @@
     <p>© <span id="current-year"></span> AHADO EXPRESS — Liban Ali. <span data-i18n="footer.rights">Tous droits réservés.</span></p>
   </footer>
 
-  <script type="module" src="js/main.js?v=catalog-pro-20260529c"></script>
+  <script type="module" src="js/main.js?v=gardien-fix-20260601"></script>
 </body>
 </html>

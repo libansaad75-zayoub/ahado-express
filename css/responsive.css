@@ -18,8 +18,8 @@
   .search-box input{width:100%}
 }
 @media (max-width:1500px){
-  .chat-fab,.whatsapp-fab{position:static;display:inline-grid;width:54px;height:54px;margin:1rem .35rem 0;vertical-align:middle;animation:none}
-  .chat-fab{margin-inline-start:clamp(.9rem,2.3vw,1.5rem)}
+  .whatsapp-fab{position:fixed;inset-inline-end:1rem;bottom:calc(1rem + env(safe-area-inset-bottom));width:56px;height:56px;margin:0}
+  .chat-fab{position:fixed;inset-inline-end:1rem;bottom:calc(1rem + 68px + env(safe-area-inset-bottom));width:56px;height:56px;margin:0}
 }
 @media (max-width:560px){
   .site-header{padding:.5rem}
@@ -31,16 +31,23 @@
   .hero{grid-template-columns:1fr}
   .hero-copy{min-height:auto}
   .hero-lockup{gap:.9rem;margin-bottom:1.25rem}
+  .hero-lockup{order:1}
+  .hero .eyebrow{order:2}
+  .hero h1{order:3}
+  .hero-sub{order:4}
+  .hero-actions{order:5}
+  .hero-promises{order:6}
   .hero-mark{border-radius:16px}
   .hero h1{font-size:2.3rem}
-  .hero-promises{gap:.45rem;margin:.85rem 0 .55rem}
+  .hero-promises{gap:.45rem;margin:.85rem 0 .55rem;padding-inline-end:3.85rem}
   .hero-promises li{align-items:start;gap:.5rem;padding:.62rem;border-radius:18px}
   .promise-mark{min-width:2.1rem;height:2.1rem;font-size:.68rem}
   .hero-promises strong{font-size:.82rem}
   .hero-promises small{font-size:.72rem}
+  .whatsapp-fab{inset-inline-end:.75rem;bottom:calc(.75rem + env(safe-area-inset-bottom));width:50px;height:50px;font-size:1.55rem}
+  .chat-fab{inset-inline-end:.75rem;bottom:calc(.75rem + 58px + env(safe-area-inset-bottom));width:50px;height:50px;font-size:1.35rem}
   .catalog-grid{grid-template-columns:1fr;gap:1rem}
-  .filters{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-inline:contain;padding-bottom:.25rem;scrollbar-width:none}
-  .filters::-webkit-scrollbar{display:none}
+  .filters{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-inline:contain;padding-bottom:.55rem;scrollbar-width:thin}
   .filter-btn{white-space:nowrap;flex:0 0 auto}
   .product-body{padding:1rem}
   .product-name{font-size:1.05rem}

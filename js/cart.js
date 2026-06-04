@@ -4,18 +4,66 @@ import {trackEvent} from './analytics.js';
 import {translate} from './i18n.js';
 import {esc} from './utils.js';
 const key='ahado_cart_v1';
-let cart=JSON.parse(localStorage.getItem(key)||'[]');
+const text=value=>String(value??'').slice(0,200).trim();
+function readCart(){
+  try{
+    const stored=JSON.parse(localStorage.getItem(key)||'[]');
+    if(!Array.isArray(stored)) throw new Error('cart format');
+    return stored.map(item=>({
+      id:text(item.id),
+      name:text(item.name),
+      label:text(item.label),
+      price:Number(item.price),
+      qty:Math.max(1,Math.min(50,parseInt(item.qty,10)||1))
+    })).filter(item=>item.id&&item.name&&item.label&&Number.isFinite(item.price)&&item.price>0);
+  }catch{
+    localStorage.removeItem(key);
+    return [];
+  }
+}
+let cart=readCart();
 let productsRef=[];
-const save=()=>localStorage.setItem(key,JSON.stringify(cart));
+const productId=(p,v)=>`${p.name}-${v.label}`.replace(/\s+/g,'-').toLowerCase();
+const save=()=>{try{localStorage.setItem(key,JSON.stringify(cart));}catch{}};
+function catalogVariants(){
+  const variants=new Map();
+  productsRef.forEach(p=>(p.variants||[]).forEach(v=>variants.set(productId(p,v),{
+    id:productId(p,v),
+    name:p.name,
+    label:v.label,
+    price:Number(v.price)
+  })));
+  return variants;
+}
+function syncCartWithCatalog(){
+  if(!productsRef.length||!cart.length) return;
+  const variants=catalogVariants();
+  let changed=false;
+  const next=[];
+  for(const item of cart){
+    const ref=variants.get(item.id);
+    if(!ref){changed=true;continue;}
+    const qty=Math.max(1,Math.min(50,parseInt(item.qty,10)||1));
+    const clean={...ref,qty};
+    if(item.name!==clean.name||item.label!==clean.label||item.price!==clean.price||item.qty!==clean.qty) changed=true;
+    next.push(clean);
+  }
+  if(changed){cart=next;save();}
+}
 export const getCart=()=>cart;
 export const cartTotal=()=>cart.reduce((s,i)=>s+i.price*i.qty,0);
 export function addToCart(item){
-  const found=cart.find(i=>i.id===item.id); found?found.qty++:cart.push({...item,qty:1}); save(); renderCart(); trackEvent('add_to_cart',{product:item.name,price:item.price});
+  const incomingId=text(item.id);
+  const trusted=catalogVariants().get(incomingId);
+  const safe=trusted||{id:incomingId,name:text(item.name),label:text(item.label),price:Number(item.price)};
+  if(!safe.id||!safe.name||!safe.label||!Number.isFinite(safe.price)||safe.price<=0) return;
+  const found=cart.find(i=>i.id===safe.id); found?found.qty=Math.min(50,found.qty+1):cart.push({...safe,qty:1}); save(); renderCart(); trackEvent('add_to_cart',{product:safe.name,price:safe.price});
 }
 export function removeFromCart(id){cart=cart.filter(i=>i.id!==id);save();renderCart();}
-export function changeQty(id,delta){const i=cart.find(x=>x.id===id); if(!i)return; i.qty=Math.max(1,i.qty+delta); save(); renderCart();}
-export function setProductsForUpsell(products){productsRef=products;}
+export function changeQty(id,delta){const i=cart.find(x=>x.id===id); if(!i)return; i.qty=Math.max(1,Math.min(50,i.qty+delta)); save(); renderCart();}
+export function setProductsForUpsell(products){productsRef=products;syncCartWithCatalog();}
 export function renderCart(){
+  syncCartWithCatalog();
   const count=document.getElementById('cart-count'),items=document.getElementById('cart-items'),total=document.getElementById('cart-total'),progress=document.getElementById('free-progress'),pAmount=document.getElementById('progress-amount'),deliveryStatus=document.getElementById('delivery-status');
   const totalAmount=cartTotal();
   if(!items)return; count.textContent=cart.reduce((s,i)=>s+i.qty,0); total.textContent=`${totalAmount.toLocaleString('fr-FR')} FDJ`; progress.value=Math.min(totalAmount,CONFIG.freeDeliveryThreshold); progress.max=CONFIG.freeDeliveryThreshold; pAmount.textContent=`${Math.round(Math.min(100,totalAmount/CONFIG.freeDeliveryThreshold*100))}%`;

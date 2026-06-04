@@ -1,11 +1,11 @@
 // Initialisation globale du site
-import {loadCatalog} from './data-loader.js';
-import {initCatalog,bindCatalogEvents} from './catalog.js?v=catalog-pro-20260529c';
-import {bindCartEvents,renderCart,setProductsForUpsell,addToCart} from './cart.js';
-import {initCheckout,bindCheckoutEvents} from './checkout.js';
+import {loadCatalog} from './data-loader.js?v=gardien-fix-20260601';
+import {initCatalog,bindCatalogEvents} from './catalog.js?v=gardien-fix-20260601';
+import {bindCartEvents,renderCart,setProductsForUpsell,addToCart} from './cart.js?v=gardien-fix-20260601';
+import {initCheckout,bindCheckoutEvents} from './checkout.js?v=gardien-fix-20260601';
 import {applyI18n,getLang} from './i18n.js?v=catalog-pro-20260529c';
 import {bindTrackedLinks} from './analytics.js';
-import {initChat,bindChatEvents} from './chat.js';
+import {initChat,bindChatEvents} from './chat.js?v=gardien-fix-20260601';
 import {openDialog,closeDialog} from './utils.js';
 function bindUI(products){
   const drawer=document.getElementById('cart-drawer');
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
   } else {
     setProductsForUpsell(products); initCatalog(products);
   }
-  initCheckout(); renderCart(); injectSchema(products); initChat(products);
+  initCheckout(products); renderCart(); injectSchema(products); initChat(products);
   const hc=document.getElementById('hero-product-count'); if(hc && products.length) hc.textContent=products.length;
   bindCatalogEvents(); bindCartEvents(); bindCheckoutEvents(); bindTrackedLinks(); bindUI(products); bindChatEvents();
 });

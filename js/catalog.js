@@ -1,5 +1,5 @@
 // Rendu catalogue, filtres catégories et recherche — cartes emoji
-import {addToCart} from './cart.js';
+import {addToCart} from './cart.js?v=gardien-fix-20260601';
 import {esc} from './utils.js';
 let products=[]; let activeCat='Tous'; let query='';
 const productId=(p,v)=>`${p.name}-${v.label}`.replace(/\s+/g,'-').toLowerCase();
@@ -39,7 +39,7 @@ export function renderCatalog(){
     return `
     <article class="product-card">
       <div class="product-media ${catClass(p.cat)} ${hasPhoto?'has-photo':''}" ${hasPhoto?'':`role="img" aria-label="${esc(p.name)}"`}>
-        ${hasPhoto?`<img class="product-photo" src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy" decoding="async">`:`<span class="product-emoji">${esc(p.icon||'🛒')}</span>`}
+        ${hasPhoto?`<img class="product-photo" src="${esc(p.image)}" alt="${esc(p.name)}" width="720" height="720" loading="lazy" decoding="async">`:`<span class="product-emoji">${esc(p.icon||'🛒')}</span>`}
         ${p.popular?'<span class="badge">⭐ Populaire</span>':''}
       </div>
       <div class="product-body">
