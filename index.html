@@ -31,9 +31,9 @@
   <script defer data-domain="ahadoexpress.net" src="https://plausible.io/js/script.js"></script>
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/layout.css?v=price-sync-20260604">
-  <link rel="stylesheet" href="css/components.css?v=price-sync-20260604">
-  <link rel="stylesheet" href="css/responsive.css?v=price-sync-20260604">
+  <link rel="stylesheet" href="css/layout.css?v=cart-mobile-20260605">
+  <link rel="stylesheet" href="css/components.css?v=cart-mobile-20260605">
+  <link rel="stylesheet" href="css/responsive.css?v=cart-mobile-20260605">
 </head>
 <body>
   <a class="skip-link" href="#catalogue">Aller au catalogue</a>
@@ -120,14 +120,16 @@
 
   <aside id="cart-drawer" class="cart-drawer" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="cart-title" inert>
     <div class="drawer-head"><h2 id="cart-title" data-i18n="cart.title">Votre panier</h2><button id="cart-close" class="icon-btn" aria-label="Fermer le panier" data-i18n-aria="cart.close">×</button></div>
-    <div class="free-progress"><div class="progress-label"><span data-i18n="cart.freeDelivery">Livraison gratuite à 5 000 FDJ</span><strong id="progress-amount">0%</strong></div><progress id="free-progress" value="0" max="5000"></progress></div>
-    <div class="delivery-info">
-      <p><strong data-i18n="delivery.timeTitle">Délai indicatif</strong><span data-i18n="delivery.timeText">45 à 90 min après confirmation WhatsApp.</span></p>
-      <p><strong data-i18n="delivery.feeTitle">Frais</strong><span data-i18n="delivery.feeText">Gratuit dès 5 000 FDJ. Sous 5 000 FDJ, les frais sont confirmés selon le quartier avant validation.</span></p>
-      <p id="delivery-status" class="delivery-status" aria-live="polite"></p>
+    <div class="cart-scroll">
+      <div class="free-progress"><div class="progress-label"><span data-i18n="cart.freeDelivery">Livraison gratuite à 5 000 FDJ</span><strong id="progress-amount">0%</strong></div><progress id="free-progress" value="0" max="5000"></progress></div>
+      <div class="delivery-info">
+        <p><strong data-i18n="delivery.timeTitle">Délai indicatif</strong><span data-i18n="delivery.timeText">45 à 90 min après confirmation WhatsApp.</span></p>
+        <p><strong data-i18n="delivery.feeTitle">Frais</strong><span data-i18n="delivery.feeText">Gratuit dès 5 000 FDJ. Sous 5 000 FDJ, les frais sont confirmés selon le quartier avant validation.</span></p>
+        <p id="delivery-status" class="delivery-status" aria-live="polite"></p>
+      </div>
+      <div id="cart-items" class="cart-items"></div>
+      <div class="upsell"><h3 data-i18n="cart.upsell">Souvent commandé avec</h3><div id="upsell-list"></div></div>
     </div>
-    <div id="cart-items" class="cart-items"></div>
-    <div class="upsell"><h3 data-i18n="cart.upsell">Souvent commandé avec</h3><div id="upsell-list"></div></div>
     <div class="cart-total"><span>Total</span><strong id="cart-total">0 FDJ</strong></div>
     <button id="checkout-open" class="btn btn-primary full" data-i18n="cart.checkout">Valider la commande</button>
   </aside>

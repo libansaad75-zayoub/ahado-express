@@ -51,7 +51,9 @@
   .filter-btn{white-space:nowrap;flex:0 0 auto}
   .product-body{padding:1rem}
   .product-name{font-size:1.05rem}
-  .cart-drawer{inset-inline:.5rem;top:.5rem;bottom:.5rem;width:auto}
+  .cart-drawer{inset-inline:.5rem;top:max(.5rem,env(safe-area-inset-top));bottom:max(.5rem,env(safe-area-inset-bottom));width:auto;max-height:calc(100dvh - 1rem - env(safe-area-inset-top) - env(safe-area-inset-bottom));gap:.75rem;padding:.85rem}
+  .cart-scroll{gap:.75rem}
+  .delivery-info{padding:.7rem .75rem;gap:.35rem}
   .btn{padding:.75rem .9rem}
 }
 @media (max-width:380px){
