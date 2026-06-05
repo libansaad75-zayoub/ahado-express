@@ -103,6 +103,52 @@
       </div>
     </section>
 
+    <style>
+      .video-wrap{display:flex;gap:clamp(1.75rem,4vw,4rem);align-items:center;justify-content:center;
+        flex-wrap:wrap;max-width:var(--page-max);margin:0 auto}
+      .video-copy{flex:1 1 340px;max-width:34ch}
+      .video-copy h2{margin:.6rem 0 1rem}
+      .video-copy .lead{font-size:1.18rem;line-height:1.55;color:var(--muted);max-width:50ch;margin-bottom:1.6rem}
+      .video-frame{position:relative;flex:0 0 auto;margin:0;isolation:isolate}
+      .video-frame::before{content:"";position:absolute;inset:-14% -20%;z-index:-1;
+        background:radial-gradient(42% 48% at 72% 18%, var(--gold-soft) 0, transparent 70%),
+                   radial-gradient(50% 52% at 18% 92%, var(--forest-soft) 0, transparent 72%);}
+      .promo-video{width:min(300px,76vw);aspect-ratio:9/16;height:auto;display:block;object-fit:cover;
+        border-radius:var(--radius);border:2px solid var(--ink);background:var(--forest-dark);
+        box-shadow:0 26px 70px oklch(.57 .16 152/.22);
+        transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s cubic-bezier(.22,1,.36,1)}
+      .video-frame:hover .promo-video{transform:translateY(-6px);box-shadow:0 34px 84px oklch(.57 .16 152/.3)}
+      .video-badge{position:absolute;top:14px;inset-inline-start:14px;z-index:2;display:inline-flex;align-items:center;gap:.35rem;
+        font-family:var(--font-head);font-weight:800;font-size:.85rem;letter-spacing:.01em;
+        background:var(--gold);color:oklch(.32 .08 70);padding:.4rem .85rem;border-radius:999px;
+        border:2px solid var(--ink);box-shadow:0 8px 18px oklch(.82 .15 85/.45)}
+      @media (max-width:760px){.video-wrap{flex-direction:column-reverse}
+        .video-copy{text-align:center;max-width:36ch}.video-copy .lead{margin-inline:auto}
+        .video-copy .hero-actions{justify-content:center}}
+    </style>
+    <section id="video" class="section video-section" aria-labelledby="video-title">
+      <div class="video-wrap">
+        <div class="video-copy">
+          <p class="eyebrow" data-i18n="video.eyebrow">En vidéo</p>
+          <h2 id="video-title" data-i18n="video.title">Commander prend 30 secondes.</h2>
+          <p class="lead" data-i18n="video.lead">Regardez, puis faites pareil. Livré en 45 min à Djibouti-Ville, gratuit dès 5 000 FDJ.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#catalogue" data-i18n="video.cta">Je commande</a>
+            <a class="btn btn-soft" href="https://wa.me/25377788302" data-track="WhatsApp_FAB_Click" data-i18n="hero.whatsapp">WhatsApp</a>
+          </div>
+        </div>
+        <figure class="video-frame">
+          <span class="video-badge" aria-hidden="true" data-i18n="video.badge">▶ 30 sec</span>
+          <video class="promo-video" playsinline autoplay muted loop preload="none"
+            poster="images/ahado-promo-poster.jpg" controls
+            data-i18n-aria="video.aria"
+            aria-label="Vidéo de présentation d'AHADO EXPRESS">
+            <source src="videos/ahado-promo.mp4?v=20260605" type="video/mp4">
+          </video>
+        </figure>
+      </div>
+    </section>
+
     <section id="catalogue" class="section catalog-section">
       <div class="section-head">
         <p class="eyebrow" data-i18n="catalog.eyebrow">Catalogue</p>
