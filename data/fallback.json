@@ -332,7 +332,8 @@
       "label2": "Carton complet",
       "price2": 2700,
       "label3": "2 Cartons",
-      "price3": 5300
+      "price3": 5300,
+      "image": "photos/mac-hadhimo.webp"
     },
     {
       "cat": "Spaghetti",
@@ -1150,7 +1151,8 @@
       "label2": "Pack (×6)",
       "price2": 2900,
       "label3": "Pack (×12)",
-      "price3": 5700
+      "price3": 5700,
+      "image": "photos/bio.webp"
     },
     {
       "cat": "Autres",
@@ -1699,7 +1701,8 @@
       "label2": "Pack (×6)",
       "price2": 2900,
       "label3": "Pack (×12)",
-      "price3": 5700
+      "price3": 5700,
+      "image": "photos/filtres-a-cafe-n4.webp"
     },
     {
       "cat": "Petit Déj",

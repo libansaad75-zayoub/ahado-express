@@ -1,13 +1,21 @@
 // Chargement Google Sheets gviz avec cache et fallback JSON
-import {CONFIG} from './config.js?v=price-sync-20260604';
+import {CONFIG} from './config.js?v=sheet-expire-20260605';
 const timeout = ms => new Promise((_,reject)=>setTimeout(()=>reject(new Error('timeout')),ms));
+const normStatus=value=>String(value??'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
+function isExpired(row){
+  const raw=row.statut??row.status??row.expiration??row.expirer??row.expire??row['expir\u00e9']??'';
+  const status=normStatus(raw).replace(/[\s_-]+/g,' ');
+  if(!status||status.includes('non expire')) return false;
+  return status==='expire'||status==='expirer'||status==='expired';
+}
 function normalizeRow(row){
-  return {cat:row.cat||'Autres',name:row.name||'',popular:String(row.popular).toLowerCase()==='true'||row.popular==='⭐',icon:row.icon||'🛒',image:row.image||'images/placeholder.jpg',variants:[['label1','price1'],['label2','price2'],['label3','price3']].map(([l,p])=>({label:row[l],price:Number(row[p])})).filter(v=>v.label&&v.price)};
+  const expired=isExpired(row);
+  return {cat:row.cat||'Autres',name:row.name||'',popular:String(row.popular).toLowerCase()==='true'||row.popular==='\u2b50',icon:row.icon||'\ud83d\uded2',image:row.image||'images/placeholder.jpg',expired,variants:[['label1','price1'],['label2','price2'],['label3','price3']].map(([l,p])=>({label:row[l],price:Number(row[p])})).filter(v=>v.label&&v.price)};
 }
 function parseGviz(text){
   const json=JSON.parse(text.substring(text.indexOf('{'),text.lastIndexOf('}')+1));
   const headers=json.table.cols.map(c=>c.label||c.id);
-  return json.table.rows.map(r=>Object.fromEntries(headers.map((h,i)=>[h,r.c[i]?.v ?? '']))).map(normalizeRow).filter(p=>p.name);
+  return json.table.rows.map(r=>Object.fromEntries(headers.map((h,i)=>[h,r.c[i]?.v ?? '']))).map(normalizeRow).filter(p=>p.name&&!p.expired);
 }
 async function fetchSheet(){
   if(CONFIG.sheetId.includes('REMPLACER')) throw new Error('sheet id absent');
@@ -18,7 +26,7 @@ async function fetchSheet(){
 async function fetchFallback(){
   const res=await fetch('data/fallback.json');
   const data=await res.json();
-  return data.products.map(normalizeRow);
+  return data.products.map(normalizeRow).filter(p=>p.name&&!p.expired);
 }
 function readCache(){
   try{

@@ -45,7 +45,7 @@ Site vitrine + catalogue + panier WhatsApp pour AHADO EXPRESS, service de livrai
 Structure obligatoire des colonnes :
 
 ```txt
-cat | name | popular | icon | label1 | price1 | label2 | price2 | label3 | price3 | image
+cat | name | popular | icon | label1 | price1 | label2 | price2 | label3 | price3 | image | statut
 ```
 
 Dans `js/config.js`, remplace :
@@ -55,6 +55,8 @@ sheetId: 'REMPLACER_PAR_GOOGLE_SHEET_ID'
 ```
 
 par l’ID réel de ton Google Sheet publié en lecture publique.
+
+La colonne `statut` accepte `non expiré` ou `expiré`. Un produit marqué `expiré` est retiré du catalogue public.
 
 ## Images
 

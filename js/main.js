@@ -1,5 +1,5 @@
 // Initialisation globale du site
-import {loadCatalog} from './data-loader.js?v=price-sync-20260604';
+import {loadCatalog} from './data-loader.js?v=sheet-expire-20260605';
 import {initCatalog,bindCatalogEvents} from './catalog.js?v=price-sync-20260604';
 import {bindCartEvents,renderCart,setProductsForUpsell,addToCart} from './cart.js?v=price-sync-20260604';
 import {initCheckout,bindCheckoutEvents} from './checkout.js?v=price-sync-20260604';
