@@ -17,6 +17,14 @@
   .site-footer>p{text-align:start}
   .search-box input{width:100%}
 }
+@media (max-width:760px){
+  .video-section{overflow-x:clip}
+  .video-frame::before{inset:-10% -8%}
+  .video-wrap{flex-direction:column-reverse}
+  .video-copy{text-align:center;max-width:36ch}
+  .video-copy .lead{margin-inline:auto}
+  .video-copy .hero-actions{justify-content:center}
+}
 @media (max-width:1500px){
   .whatsapp-fab{position:fixed;inset-inline-end:1rem;bottom:calc(1rem + env(safe-area-inset-bottom));width:56px;height:56px;margin:0}
   .chat-fab{position:fixed;inset-inline-end:1rem;bottom:calc(1rem + 68px + env(safe-area-inset-bottom));width:56px;height:56px;margin:0}
