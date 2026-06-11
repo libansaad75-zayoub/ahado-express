@@ -1,8 +1,9 @@
 // Netlify Function: assistant IA AHADO EXPRESS (Gemini) avec repli mock + anti-abus.
-// La cle Gemini reste cote serveur. Le catalogue est lu cote serveur depuis data/fallback.json.
-import { readFile } from 'node:fs/promises';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+// La cle Gemini reste cote serveur. Le catalogue est EMBARQUE dans le bundle au deploy
+// (import JSON statique). Ne pas revenir a une lecture fs + import.meta.url : le bundler
+// Netlify (esbuild) convertit ce fichier en CommonJS ou import.meta.url est undefined,
+// ce qui plantait le module au chargement -> 502 sur tous les appels (panne du 2026-06-11).
+import catalogData from '../../data/fallback.json';
 
 const MODEL = 'gemini-2.5-flash';
 const WINDOW_MS = 60_000;
@@ -11,7 +12,6 @@ const MAX_BODY = 50_000;
 const MAX_MSG = 500;
 const MAX_HISTORY = 8;
 const MAX_CATALOG_TEXT = 80;
-const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
 const _hits = new Map();
 let _catalog = null;
@@ -23,11 +23,10 @@ const clientIp = headers => {
   return clean(h['x-nf-client-connection-ip'] || h['x-forwarded-for'] || 'anon', 120).split(',')[0].trim() || 'anon';
 };
 
-async function loadCatalog() {
+function loadCatalog() {
   if (_catalog) return _catalog;
-  const data = JSON.parse(await readFile(path.join(root, 'data/fallback.json'), 'utf8'));
-  _catalog = Array.isArray(data.products)
-    ? data.products.slice(0, 220).map(p => ({
+  _catalog = Array.isArray(catalogData?.products)
+    ? catalogData.products.slice(0, 220).map(p => ({
       name: clean(p?.name, MAX_CATALOG_TEXT),
       cat: clean(p?.cat, MAX_CATALOG_TEXT)
     })).filter(p => p.name)
@@ -75,8 +74,8 @@ export const handler = async (event) => {
   const key = process.env.GEMINI_API_KEY;
   if (!key) return json(200, { mode: 'mock' });
 
-  let catalog;
-  try { catalog = await loadCatalog(); } catch { return json(200, { mode: 'mock' }); }
+  const catalog = loadCatalog();
+  if (!catalog.length) return json(200, { mode: 'mock' });
 
   const list = catalog.map(p => JSON.stringify(p)).join('\n');
   const sys = `Tu es l'assistant de commande d'AHADO EXPRESS, une epicerie qui livre a Djibouti-Ville.
