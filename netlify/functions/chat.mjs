@@ -13,6 +13,8 @@ const MAX_MSG = 500;
 const MAX_HISTORY = 8;
 const MAX_CATALOG_TEXT = 80;
 
+// Rate-limit best-effort : la Map vit en memoire d'instance, donc remise a zero a
+// chaque cold-start Netlify. 2e barriere = quotas du palier gratuit Google AI Studio.
 const _hits = new Map();
 let _catalog = null;
 
@@ -72,7 +74,10 @@ export const handler = async (event) => {
   }
 
   const key = process.env.GEMINI_API_KEY;
-  if (!key) return json(200, { mode: 'mock' });
+  if (!key) {
+    console.warn('[chat] GEMINI_API_KEY absente — mode mock actif (verifier les Environment variables Netlify)');
+    return json(200, { mode: 'mock' });
+  }
 
   const catalog = loadCatalog();
   if (!catalog.length) return json(200, { mode: 'mock' });

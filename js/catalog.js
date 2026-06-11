@@ -57,7 +57,7 @@ export function renderCatalog(){
           ${primaryVariant?`<div class="variant-row">
             <span class="variant-label">${esc(primaryVariant.label)}</span>
             <strong class="price">${Number(primaryVariant.price).toLocaleString('fr-FR')} FDJ</strong>
-            <button class="btn btn-add" data-add='${esc(JSON.stringify({id:productId(p,primaryVariant),name:p.name,label:primaryVariant.label,price:Number(primaryVariant.price)}))}' aria-label="Ajouter ${esc(p.name)} ${esc(primaryVariant.label)} au panier">+</button>
+            <button class="btn btn-add" data-add="${products.indexOf(p)}" aria-label="Ajouter ${esc(p.name)} ${esc(primaryVariant.label)} au panier">+</button>
           </div>`:''}
         </div>
       </div>
@@ -69,5 +69,11 @@ export function bindCatalogEvents(){
   if(filters) filters.addEventListener('click',e=>{const btn=e.target.closest('[data-cat]'); if(!btn)return; activeCat=btn.dataset.cat; renderFilters(); renderCatalog();});
   document.getElementById('search').addEventListener('input',e=>{query=e.target.value; renderCatalog();});
   window.addEventListener('ahado:langchange',renderCatalog);
-  document.addEventListener('click',e=>{const btn=e.target.closest('[data-add]'); if(btn) addToCart(JSON.parse(btn.dataset.add));});
+  // data-add = index du produit dans `products` (pas de JSON dans l'attribut) ;
+  // les donnees (nom/prix) sont relues du catalogue, jamais du DOM.
+  document.addEventListener('click',e=>{
+    const btn=e.target.closest('[data-add]'); if(!btn) return;
+    const p=products[Number(btn.dataset.add)]; const v=p?.variants[0];
+    if(p&&v) addToCart({id:productId(p,v),name:p.name,label:v.label,price:Number(v.price)});
+  });
 }

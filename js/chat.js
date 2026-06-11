@@ -4,7 +4,7 @@
 import {CONFIG} from './config.js?v=price-sync-20260604';
 import {addToCart, getCart, cartTotal} from './cart.js?v=price-sync-20260604';
 import {trackEvent} from './analytics.js';
-import {esc, openDialog, closeDialog} from './utils.js';
+import {openDialog, closeDialog} from './utils.js';
 
 let products = [];
 let opened = false;
@@ -33,27 +33,32 @@ export function initChat(data) {
 /* ---------- rendu des messages ---------- */
 function el(id) { return document.getElementById(id); }
 
-function pushMessage(role, innerHTML) {
+// Tout le rendu du chat est construit en DOM (createElement/textContent) :
+// AUCUN innerHTML avec données dynamiques → pas de surface XSS, même si une
+// donnée future (catalogue, réponse IA) arrivait non échappée.
+function make(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== undefined) node.textContent = text;
+  return node;
+}
+
+function pushMessage(role, ...nodes) {
   const wrap = el('chat-messages');
-  if (!wrap) return;
-  const msg = document.createElement('div');
-  msg.className = `chat-msg chat-msg-${role}`;
-  const avatar = role === 'bot' ? 'AE' : 'V';
-  msg.innerHTML = `<span class="chat-avatar" aria-hidden="true">${avatar}</span>${innerHTML}`;
+  if (!wrap) return null;
+  const msg = make('div', `chat-msg chat-msg-${role}`);
+  const avatar = make('span', 'chat-avatar', role === 'bot' ? 'AE' : 'V');
+  avatar.setAttribute('aria-hidden', 'true');
+  msg.append(avatar, ...nodes);
   wrap.appendChild(msg);
   wrap.scrollTop = wrap.scrollHeight;
+  return msg;
 }
-const botSay = text => pushMessage('bot', `<div class="chat-bubble">${esc(text)}</div>`);
-const botHTML = html => pushMessage('bot', html);
-const userSay = text => pushMessage('user', `<div class="chat-bubble">${esc(text)}</div>`);
+const botSay = text => pushMessage('bot', make('div', 'chat-bubble', text));
+const userSay = text => pushMessage('user', make('div', 'chat-bubble', text));
 
 function showTyping() {
-  const wrap = el('chat-messages'); if (!wrap) return null;
-  const m = document.createElement('div');
-  m.className = 'chat-msg chat-msg-bot';
-  m.innerHTML = '<span class="chat-avatar" aria-hidden="true">AE</span><div class="chat-bubble chat-typing">…</div>';
-  wrap.appendChild(m); wrap.scrollTop = wrap.scrollHeight;
-  return m;
+  return pushMessage('bot', make('div', 'chat-bubble chat-typing', '…'));
 }
 const removeTyping = m => m && m.remove();
 
@@ -86,14 +91,26 @@ function showCart() {
   if (!c.length) return;
   const total = cartTotal();
   const free = total >= CONFIG.freeDeliveryThreshold;
-  const lines = c.map(i => `<div class="chat-cart-line"><span>${esc(i.name)} ${esc(i.label)} × ${i.qty}</span><span>${(i.price * i.qty).toLocaleString('fr-FR')} FDJ</span></div>`).join('');
-  botHTML(`<div class="chat-cart">
-      <div class="chat-cart-title">🛒 Votre panier</div>
-      ${lines}
-      <div class="chat-cart-total"><span>Total</span><span>${total.toLocaleString('fr-FR')} FDJ</span></div>
-      <div class="chat-cart-free">${free ? '✓ Livraison gratuite (seuil atteint)' : `Plus que ${(CONFIG.freeDeliveryThreshold - total).toLocaleString('fr-FR')} FDJ pour la livraison gratuite`}</div>
-      <button type="button" class="chat-finalize" data-action="finalize">Finaliser ma commande</button>
-    </div>`);
+  const cart = make('div', 'chat-cart');
+  cart.appendChild(make('div', 'chat-cart-title', '🛒 Votre panier'));
+  c.forEach(i => {
+    const line = make('div', 'chat-cart-line');
+    line.appendChild(make('span', '', `${i.name} ${i.label} × ${i.qty}`));
+    line.appendChild(make('span', '', `${(i.price * i.qty).toLocaleString('fr-FR')} FDJ`));
+    cart.appendChild(line);
+  });
+  const totalRow = make('div', 'chat-cart-total');
+  totalRow.appendChild(make('span', '', 'Total'));
+  totalRow.appendChild(make('span', '', `${total.toLocaleString('fr-FR')} FDJ`));
+  cart.appendChild(totalRow);
+  cart.appendChild(make('div', 'chat-cart-free', free
+    ? '✓ Livraison gratuite (seuil atteint)'
+    : `Plus que ${(CONFIG.freeDeliveryThreshold - total).toLocaleString('fr-FR')} FDJ pour la livraison gratuite`));
+  const btn = make('button', 'chat-finalize', 'Finaliser ma commande');
+  btn.type = 'button';
+  btn.dataset.action = 'finalize';
+  cart.appendChild(btn);
+  pushMessage('bot', cart);
 }
 
 function addVariantToCart(p, v, qty) {
@@ -103,14 +120,20 @@ function addVariantToCart(p, v, qty) {
 
 function proposeProducts(list, qty) {
   // Construit des chips de choix (produit + 1re variante)
-  const chips = list.slice(0, 8).map(p => {
+  const bubble = make('div', 'chat-bubble', "Voici ce que j'ai trouvé, lequel voulez-vous ?");
+  const chips = make('div', 'chat-chips');
+  list.slice(0, 8).forEach(p => {
     const v = p.variants[0];
-    if (!v) return '';
-    const idx = products.indexOf(p);
-    return `<button type="button" class="chat-chip" data-pick="${idx}" data-qty="${qty}">${esc(p.icon || '🛒')} ${esc(p.name)} — ${Number(v.price).toLocaleString('fr-FR')} FDJ</button>`;
-  }).join('');
-  botHTML(`<div class="chat-bubble">Voici ce que j'ai trouvé, lequel voulez-vous ?
-      <div class="chat-chips">${chips}</div></div>`);
+    if (!v) return;
+    const chip = make('button', 'chat-chip',
+      `${p.icon || '🛒'} ${p.name} — ${Number(v.price).toLocaleString('fr-FR')} FDJ`);
+    chip.type = 'button';
+    chip.dataset.pick = String(products.indexOf(p));
+    chip.dataset.qty = String(qty);
+    chips.appendChild(chip);
+  });
+  bubble.appendChild(chips);
+  pushMessage('bot', bubble);
 }
 
 // Aiguillage : tente l'IA (Netlify Function + Gemini) puis retombe sur le chat guidé.
@@ -125,7 +148,9 @@ async function tryAI(text) {
     const res = await fetch('/.netlify/functions/chat', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ message: text, history, catalog: products.map(p => ({ name: p.name, cat: p.cat })) }),
+      // Le serveur charge son propre catalogue (embarqué dans la fonction) :
+      // ne pas l'envoyer ici — poids mort sur connexion lente.
+      body: JSON.stringify({ message: text, history }),
     });
     removeTyping(typing);
     if (!res.ok) return false;
