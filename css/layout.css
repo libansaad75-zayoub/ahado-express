@@ -36,6 +36,15 @@
 .eyebrow{text-transform:uppercase;letter-spacing:.16em;color:var(--forest);font-weight:800;font-size:.78rem}
 .hero-copy .eyebrow{color:var(--gold)}
 .hero-actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.6rem}
+/* Ordre VISUEL desktop du hero (promesses au-dessus du titre) — le DOM est en ordre de
+   lecture (h1 d'abord, pour les lecteurs d'écran). Sélecteurs à la MÊME spécificité que
+   la carte d'ordre mobile de responsive.css (chargé après), qui reprend la main en mobile. */
+.hero-lockup{order:1}
+.hero .eyebrow{order:2}
+.hero-promises{order:3}
+.hero h1{order:4}
+.hero-sub{order:5}
+.hero-actions{order:6}
 .stat{display:flex;flex-direction:column;justify-content:end;gap:.2rem}
 .stat strong{font-family:var(--font-head);font-weight:800;font-size:clamp(2.8rem,5.2vw,4rem);line-height:1}
 .stat span{color:var(--muted);font-weight:700}

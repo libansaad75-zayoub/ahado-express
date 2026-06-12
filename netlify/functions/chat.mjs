@@ -4,6 +4,7 @@
 // Netlify (esbuild) convertit ce fichier en CommonJS ou import.meta.url est undefined,
 // ce qui plantait le module au chargement -> 502 sur tous les appels (panne du 2026-06-11).
 import catalogData from '../../data/fallback.json';
+import { getStore, connectLambda } from '@netlify/blobs';
 
 const MODEL = 'gemini-2.5-flash';
 const WINDOW_MS = 60_000;
@@ -13,8 +14,9 @@ const MAX_MSG = 500;
 const MAX_HISTORY = 8;
 const MAX_CATALOG_TEXT = 80;
 
-// Rate-limit best-effort : la Map vit en memoire d'instance, donc remise a zero a
-// chaque cold-start Netlify. 2e barriere = quotas du palier gratuit Google AI Studio.
+// Rate-limit DURABLE via Netlify Blobs (survit aux cold-starts). La Map memoire ne
+// sert plus que de REPLI si Blobs est indisponible ; derniere barriere = quotas du
+// palier gratuit Google AI Studio.
 const _hits = new Map();
 let _catalog = null;
 
@@ -36,7 +38,7 @@ function loadCatalog() {
   return _catalog;
 }
 
-function rateLimited(ip) {
+function rateLimitedMemory(ip) {
   const now = Date.now();
   const arr = (_hits.get(ip) || []).filter(t => now - t < WINDOW_MS);
   arr.push(now);
@@ -49,6 +51,22 @@ function rateLimited(ip) {
   return arr.length > MAX_REQ;
 }
 
+async function rateLimited(ip) {
+  try {
+    const store = getStore('rate-limit');
+    const key = ip.replace(/[^a-zA-Z0-9._:-]/g, '_') || 'anon';
+    const now = Date.now();
+    const prev = await store.get(key, { type: 'json' });
+    const arr = (Array.isArray(prev) ? prev : []).filter(t => now - t < WINDOW_MS);
+    arr.push(now);
+    await store.setJSON(key, arr);
+    return arr.length > MAX_REQ;
+  } catch {
+    // Blobs indisponible (local, ou non active) -> repli memoire d'instance
+    return rateLimitedMemory(ip);
+  }
+}
+
 const json = (status, obj, headers = {}) => ({
   statusCode: status,
   headers: { 'content-type': 'application/json', ...headers },
@@ -56,6 +74,9 @@ const json = (status, obj, headers = {}) => ({
 });
 
 export const handler = async (event) => {
+  // Donne le contexte Blobs aux fonctions "legacy" (signature event/handler) ;
+  // sans effet si le runtime l'injecte deja, repli memoire si ca echoue.
+  try { connectLambda(event); } catch { /* Blobs restera en repli memoire */ }
   if (event.httpMethod !== 'POST') return json(405, { error: 'method' });
   if (String(event.body || '').length > MAX_BODY) return json(413, { error: 'body too large' });
 
@@ -69,7 +90,7 @@ export const handler = async (event) => {
     : [];
 
   const ip = clientIp(event.headers || {});
-  if (rateLimited(ip)) {
+  if (await rateLimited(ip)) {
     return json(429, { mode: 'busy', reply: "Un instant, trop de messages d'un coup. Reessayez dans une minute." }, { 'retry-after': '60' });
   }
 

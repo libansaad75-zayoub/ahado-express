@@ -63,6 +63,15 @@
           <strong>AHADO<br>EXPRESS</strong>
         </div>
         <p class="eyebrow" data-i18n="hero.eyebrow">Livraison à Djibouti-Ville</p>
+        <!-- Ordre DOM = ordre de lecture (h1 d'abord pour les lecteurs d'écran) ;
+             l'ordre VISUEL desktop (promesses au-dessus du titre) est rendu par
+             les règles `order` de layout.css, le mobile par responsive.css. -->
+        <h1 data-i18n="hero.title">Vos courses livrées vite, simplement, depuis WhatsApp.</h1>
+        <p class="hero-sub" data-i18n="hero.subtitle">AHADO EXPRESS aide les familles, boutiques, restaurants, hôtels et cafétérias à commander leurs produits essentiels sans perdre de temps.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#catalogue" data-i18n="hero.cta">Commander maintenant</a>
+          <a class="btn btn-soft" href="https://wa.me/25377788302" data-track="WhatsApp_FAB_Click" data-i18n="hero.whatsapp">WhatsApp</a>
+        </div>
         <ul class="hero-promises" aria-label="Promesses AHADO EXPRESS" data-i18n-aria="hero.promisesLabel">
           <li>
             <span class="promise-mark" aria-hidden="true">164</span>
@@ -81,12 +90,6 @@
             <span><strong data-i18n="hero.promiseWhatsAppTitle">WhatsApp direct</strong><small data-i18n="hero.promiseWhatsAppText">commande pré-remplie</small></span>
           </li>
         </ul>
-        <h1 data-i18n="hero.title">Vos courses livrées vite, simplement, depuis WhatsApp.</h1>
-        <p class="hero-sub" data-i18n="hero.subtitle">AHADO EXPRESS aide les familles, boutiques, restaurants, hôtels et cafétérias à commander leurs produits essentiels sans perdre de temps.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#catalogue" data-i18n="hero.cta">Commander maintenant</a>
-          <a class="btn btn-soft" href="https://wa.me/25377788302" data-track="WhatsApp_FAB_Click" data-i18n="hero.whatsapp">WhatsApp</a>
-        </div>
       </div>
         <figure class="hero-photo">
           <img src="images/boutique-hero.webp" alt="Boutique AHADO EXPRESS à Djibouti-Ville : rayons remplis d'eau, huile, riz, conserves et produits d'épicerie" width="1100" height="825" decoding="async">
@@ -119,9 +122,11 @@
           <video class="promo-video" playsinline autoplay muted loop preload="none"
             poster="images/ahado-promo-poster.jpg" controls
             data-i18n-aria="video.aria"
-            aria-label="Vidéo de présentation d'AHADO EXPRESS">
+            aria-label="Vidéo de présentation d'AHADO EXPRESS"
+            aria-describedby="video-transcript">
             <source src="videos/ahado-promo.mp4?v=20260605" type="video/mp4">
           </video>
+          <p class="sr-only" id="video-transcript" data-i18n="video.transcript">Vidéo muette avec textes à l'écran. Elle montre les 3 étapes : choisir ses produits au catalogue, valider le panier (téléphone, quartier, paiement), puis recevoir la commande envoyée sur WhatsApp. Livraison en 45 minutes à Djibouti-Ville, gratuite dès 5 000 FDJ.</p>
         </figure>
       </div>
     </section>

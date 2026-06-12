@@ -1,0 +1,8 @@
+{
+  "name": "ahado-express",
+  "private": true,
+  "description": "Site statique AHADO EXPRESS - les dependances servent uniquement aux fonctions Netlify",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}
