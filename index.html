@@ -112,7 +112,7 @@
         <div class="video-copy">
           <p class="eyebrow" data-i18n="video.eyebrow">En vidéo</p>
           <h2 id="video-title" data-i18n="video.title">Commander prend 30 secondes.</h2>
-          <p class="lead" data-i18n="video.lead">Regardez, puis faites pareil. Livré en 45 min à Djibouti-Ville, gratuit dès 5 000 FDJ.</p>
+          <p class="lead" data-i18n="video.lead">Regardez, puis faites pareil. 45 minutes plus tard, vos courses sont à votre porte — gratuites dès 10 000 FDJ d'achat.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#catalogue" data-i18n="video.cta">Je commande</a>
             <a class="btn btn-soft" href="https://wa.me/25377788302" data-track="WhatsApp_FAB_Click" data-i18n="hero.whatsapp">WhatsApp</a>
@@ -125,9 +125,9 @@
             data-i18n-aria="video.aria"
             aria-label="Vidéo de présentation d'AHADO EXPRESS"
             aria-describedby="video-transcript">
-            <source src="videos/ahado-promo.mp4?v=20260605" type="video/mp4">
+            <source src="videos/ahado-promo.mp4?v=20260613" type="video/mp4">
           </video>
-          <p class="sr-only" id="video-transcript" data-i18n="video.transcript">Vidéo muette avec textes à l'écran. Elle montre les 3 étapes : choisir ses produits au catalogue, valider le panier (téléphone, quartier, paiement), puis recevoir la commande envoyée sur WhatsApp. Livraison en 45 minutes à Djibouti-Ville, gratuite dès 5 000 FDJ.</p>
+          <p class="sr-only" id="video-transcript" data-i18n="video.transcript">Vidéo muette avec textes à l'écran. Elle montre les 3 étapes : choisir ses produits au catalogue, valider le panier (téléphone, quartier, paiement), puis recevoir la commande envoyée sur WhatsApp. Livraison en 45 minutes à Djibouti-Ville, gratuite dès 10 000 FDJ.</p>
         </figure>
       </div>
     </section>
@@ -152,10 +152,10 @@
   <aside id="cart-drawer" class="cart-drawer" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="cart-title" inert>
     <div class="drawer-head"><h2 id="cart-title" data-i18n="cart.title">Votre panier</h2><button id="cart-close" class="icon-btn" aria-label="Fermer le panier" data-i18n-aria="cart.close">×</button></div>
     <div class="cart-scroll">
-      <div class="free-progress"><div class="progress-label"><span data-i18n="cart.freeDelivery">Livraison gratuite à 5 000 FDJ</span><strong id="progress-amount">0%</strong></div><progress id="free-progress" value="0" max="5000"></progress></div>
+      <div class="free-progress"><div class="progress-label"><span data-i18n="cart.freeDelivery">Livraison gratuite dès 10 000 FDJ</span><strong id="progress-amount">0%</strong></div><progress id="free-progress" value="0" max="10000"></progress></div>
       <div class="delivery-info">
         <p><strong data-i18n="delivery.timeTitle">Délai indicatif</strong><span data-i18n="delivery.timeText">45 à 90 min après confirmation WhatsApp.</span></p>
-        <p><strong data-i18n="delivery.feeTitle">Frais</strong><span data-i18n="delivery.feeText">Gratuit dès 5 000 FDJ. Sous 5 000 FDJ, les frais sont confirmés selon le quartier avant validation.</span></p>
+        <p><strong data-i18n="delivery.feeTitle">Frais</strong><span data-i18n="delivery.feeText">Gratuit dès 10 000 FDJ. Sous 10 000 FDJ, les frais sont confirmés selon le quartier avant validation.</span></p>
         <p id="delivery-status" class="delivery-status" aria-live="polite"></p>
       </div>
       <div id="cart-items" class="cart-items"></div>
@@ -171,7 +171,7 @@
       <div class="checkout-form-body">
         <div class="delivery-info checkout-delivery">
           <p><strong data-i18n="delivery.timeTitle">Délai indicatif</strong><span data-i18n="delivery.timeText">45 à 90 min après confirmation WhatsApp.</span></p>
-          <p><strong data-i18n="delivery.checkoutFeeTitle">Livraison</strong><span data-i18n="delivery.checkoutFeeText">Gratuite dès 5 000 FDJ. Sous ce seuil, AHADO confirme les frais selon votre quartier avant départ.</span></p>
+          <p><strong data-i18n="delivery.checkoutFeeTitle">Livraison</strong><span data-i18n="delivery.checkoutFeeText">Gratuite dès 10 000 FDJ. Sous ce seuil, AHADO confirme les frais selon votre quartier avant départ.</span></p>
         </div>
         <label for="customer-name" data-i18n="checkout.name">Nom</label><input id="customer-name" name="customer_name" required autocomplete="name">
         <label for="customer-phone" data-i18n="checkout.phone">Téléphone</label><input id="customer-phone" name="phone" type="tel" required inputmode="tel" autocomplete="tel" placeholder="77 78 83 02" maxlength="16">

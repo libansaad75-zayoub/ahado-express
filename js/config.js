@@ -4,7 +4,7 @@ export const CONFIG = {
   owner: 'Liban Ali',
   domain: 'https://ahadoexpress.net',
   whatsappNumber: '25377788302',
-  freeDeliveryThreshold: 5000,
+  freeDeliveryThreshold: 10000,
   cacheKey: 'ahado_catalog_cache_v7',
   cacheTTL: 1000 * 60 * 30,
   // Remplacer par l'identifiant réel du Google Sheet publié en lecture publique

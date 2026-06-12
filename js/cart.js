@@ -66,7 +66,7 @@ export function renderCart(){
   syncCartWithCatalog();
   const count=document.getElementById('cart-count'),items=document.getElementById('cart-items'),total=document.getElementById('cart-total'),progress=document.getElementById('free-progress'),pAmount=document.getElementById('progress-amount'),deliveryStatus=document.getElementById('delivery-status');
   const totalAmount=cartTotal();
-  if(!items)return; count.textContent=cart.reduce((s,i)=>s+i.qty,0); total.textContent=`${totalAmount.toLocaleString('fr-FR')} FDJ`; progress.value=Math.min(totalAmount,CONFIG.freeDeliveryThreshold); progress.max=CONFIG.freeDeliveryThreshold; pAmount.textContent=`${Math.round(Math.min(100,totalAmount/CONFIG.freeDeliveryThreshold*100))}%`;
+  if(!items)return; count.textContent=cart.reduce((s,i)=>s+i.qty,0); total.textContent=`${totalAmount.toLocaleString('fr-FR')} FDJ`; progress.value=Math.min(totalAmount,CONFIG.freeDeliveryThreshold); progress.max=CONFIG.freeDeliveryThreshold; pAmount.textContent=`${Math.round(Math.min(100,totalAmount/CONFIG.freeDeliveryThreshold*100))}%`; progress.closest('.free-progress')?.classList.toggle('done',totalAmount>=CONFIG.freeDeliveryThreshold);
   if(deliveryStatus){
     const remaining=Math.max(0,CONFIG.freeDeliveryThreshold-totalAmount).toLocaleString('fr-FR');
     deliveryStatus.textContent=totalAmount>=CONFIG.freeDeliveryThreshold?translate('delivery.statusFree'):translate('delivery.statusRemaining').replace('{amount}', remaining);
