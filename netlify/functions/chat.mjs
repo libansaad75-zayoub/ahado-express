@@ -53,7 +53,9 @@ function rateLimitedMemory(ip) {
 
 async function rateLimited(ip) {
   try {
-    const store = getStore('rate-limit');
+    // consistency 'strong' obligatoire : en 'eventual' (defaut), chaque lecture revient
+    // vide juste apres l'ecriture -> le compteur ne s'accumule jamais (verifie en prod).
+    const store = getStore({ name: 'rate-limit', consistency: 'strong' });
     const key = ip.replace(/[^a-zA-Z0-9._:-]/g, '_') || 'anon';
     const now = Date.now();
     const prev = await store.get(key, { type: 'json' });
