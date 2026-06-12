@@ -31,6 +31,5 @@ document.addEventListener('DOMContentLoaded',async()=>{
     setProductsForUpsell(products); initCatalog(products);
   }
   initCheckout(products); renderCart(); injectSchema(products); initChat(products);
-  const hc=document.getElementById('hero-product-count'); if(hc && products.length) hc.textContent=products.length;
   bindCatalogEvents(); bindCartEvents(); bindCheckoutEvents(); bindTrackedLinks(); bindUI(products); bindChatEvents();
 });

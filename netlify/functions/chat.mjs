@@ -87,9 +87,17 @@ export const handler = async (event) => {
 
   const message = clean(body.message, MAX_MSG);
   if (!message) return json(400, { error: 'empty' });
-  const history = Array.isArray(body.history)
-    ? body.history.slice(-MAX_HISTORY).map(h => ({ role: h?.role === 'user' ? 'user' : 'model', text: clean(h?.text, MAX_MSG) })).filter(h => h.text)
-    : [];
+  // Historique : exiger l'alternance user -> model -> user (forme produite par notre
+  // front). Un client forge sinon de faux tours "model" pour manipuler le contexte Gemini.
+  const history = [];
+  for (const h of Array.isArray(body.history) ? body.history.slice(-MAX_HISTORY) : []) {
+    const role = h?.role === 'user' ? 'user' : 'model';
+    const text = clean(h?.text, MAX_MSG);
+    if (!text) continue;
+    const expected = !history.length || history[history.length - 1].role === 'model' ? 'user' : 'model';
+    if (role !== expected) continue;
+    history.push({ role, text });
+  }
 
   const ip = clientIp(event.headers || {});
   if (await rateLimited(ip)) {

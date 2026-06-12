@@ -2,12 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://ahadoexpress.net/</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://ahadoexpress.net/?lang=fr" />
     <xhtml:link rel="alternate" hreflang="en" href="https://ahadoexpress.net/?lang=en" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://ahadoexpress.net/?lang=ar" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ahadoexpress.net/" />
   </url>
   <url><loc>https://ahadoexpress.net/cgv</loc><lastmod>2026-05-29</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://ahadoexpress.net/confidentialite</loc><lastmod>2026-05-29</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>

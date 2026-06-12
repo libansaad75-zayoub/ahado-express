@@ -36,6 +36,9 @@ export function renderCatalog(){
   const count=document.getElementById('catalog-count');
   const photoCount=document.getElementById('catalog-photo-count');
   if(count) count.textContent=list.length;
+  // Annonce lecteur d'écran : seulement le nombre de résultats (jamais la grille entière)
+  const status=document.getElementById('catalog-status');
+  if(status) status.textContent=translate('catalog.statusCount').replace('{count}', list.length);
   if(photoCount){
     const n=list.filter(hasPhoto).length;
     photoCount.textContent=translate('catalog.photoCount').replace('{count}', n);
