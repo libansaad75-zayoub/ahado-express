@@ -86,7 +86,8 @@
       "label2": "Pack (×6)",
       "price2": 2900,
       "label3": "Pack (×12)",
-      "price3": 5700
+      "price3": 5700,
+      "image": "photos/mayonnaise-grand.webp"
     },
     {
       "cat": "Autres",
@@ -123,7 +124,8 @@
       "label2": "Pack (×1)",
       "price2": 2300,
       "label3": "Pack (×12)",
-      "price3": 4500
+      "price3": 4500,
+      "image": "photos/moutarde-petit.webp"
     },
     {
       "cat": "Autres",
@@ -148,7 +150,8 @@
       "label2": "Pack (×6)",
       "price2": 3800,
       "label3": "Pack (×12)",
-      "price3": 7400
+      "price3": 7400,
+      "image": "photos/sirop-rouge.webp"
     },
     {
       "cat": "Autres",
@@ -160,7 +163,8 @@
       "label2": "Pack (×6)",
       "price2": 3800,
       "label3": "Pack (×12)",
-      "price3": 7400
+      "price3": 7400,
+      "image": "photos/sirop-vert.webp"
     },
     {
       "cat": "Autres",
@@ -522,7 +526,8 @@
       "label2": "5 Kg",
       "price2": 1400,
       "label3": "10 Kg",
-      "price3": 2700
+      "price3": 2700,
+      "image": "photos/foul-noir.webp"
     },
     {
       "cat": "Épices",
@@ -534,7 +539,8 @@
       "label2": "1/2 Kg",
       "price2": 580,
       "label3": "1 Kg",
-      "price3": 1100
+      "price3": 1100,
+      "image": "photos/gingembre.webp"
     },
     {
       "cat": "Épices",
@@ -546,7 +552,8 @@
       "label2": "5 Kg",
       "price2": 1400,
       "label3": "10 Kg",
-      "price3": 2700
+      "price3": 2700,
+      "image": "photos/lentille-noire.webp"
     },
     {
       "cat": "Épices",
@@ -623,7 +630,8 @@
       "label2": "1/2 Kg",
       "price2": 480,
       "label3": "1 Kg",
-      "price3": 920
+      "price3": 920,
+      "image": "photos/the-noir.webp"
     },
     {
       "cat": "Épices",
@@ -648,7 +656,8 @@
       "label2": "1 plateaux",
       "price2": 2900,
       "label3": "5 plateaux",
-      "price3": 7200
+      "price3": 7200,
+      "image": "photos/oeufs-plateau.webp"
     },
     {
       "cat": "Huiles",
@@ -816,7 +825,8 @@
       "label2": "Pack (×3)",
       "price2": 3650,
       "label3": "Pack (×6)",
-      "price3": 7200
+      "price3": 7200,
+      "image": "photos/bledilait-1.webp"
     },
     {
       "cat": "Lait Infantile",
@@ -841,7 +851,8 @@
       "label2": "Pack (×3)",
       "price2": 3950,
       "label3": "Pack (×6)",
-      "price3": 7800
+      "price3": 7800,
+      "image": "photos/bledilait-1-3.webp"
     },
     {
       "cat": "Lait Infantile",
@@ -1089,7 +1100,8 @@
       "label2": "Pack (×3)",
       "price2": 6700,
       "label3": "Pack (×6)",
-      "price3": 13200
+      "price3": 13200,
+      "image": "photos/rainbow-moyen.webp"
     },
     {
       "cat": "Lait Poudre",
@@ -1151,7 +1163,8 @@
       "label2": "Pack (×6)",
       "price2": 4700,
       "label3": "Pack (×12)",
-      "price3": 9200
+      "price3": 9200,
+      "image": "photos/acide.webp"
     },
     {
       "cat": "Nettoyage",
@@ -1262,7 +1275,8 @@
       "label2": "Pack (×3)",
       "price2": 3500,
       "label3": "Pack (×6)",
-      "price3": 6900
+      "price3": 6900,
+      "image": "photos/crystal-machine.webp"
     },
     {
       "cat": "Nettoyage",
@@ -1287,7 +1301,8 @@
       "label2": "Pack (×3)",
       "price2": 3800,
       "label3": "Pack (×6)",
-      "price3": 7500
+      "price3": 7500,
+      "image": "photos/fasclean-5l.webp"
     },
     {
       "cat": "Nettoyage",
@@ -1388,7 +1403,8 @@
       "label2": "Pack (×6)",
       "price2": 3800,
       "label3": "Pack (×12)",
-      "price3": 7400
+      "price3": 7400,
+      "image": "photos/javel.webp"
     },
     {
       "cat": "Nettoyage",
@@ -1499,7 +1515,8 @@
       "label2": "Pack (×48)",
       "price2": 5600,
       "label3": "Pack (×6)",
-      "price3": 11000
+      "price3": 11000,
+      "image": "photos/savon-poudre-oxy.webp"
     },
     {
       "cat": "Nettoyage",
@@ -1627,7 +1644,8 @@
       "label2": "2 sacs (50 Kg)",
       "price2": 5400,
       "label3": "5 sacs (125 Kg)",
-      "price3": 13500
+      "price3": 13500,
+      "image": "photos/beleine.webp"
     },
     {
       "cat": "Riz",
