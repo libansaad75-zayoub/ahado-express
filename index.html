@@ -32,9 +32,9 @@
   <script defer data-domain="ahadoexpress.net" src="https://plausible.io/js/script.js"></script>
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/layout.css?v=android-overflow-20260605">
+  <link rel="stylesheet" href="css/layout.css?v=menu-mobile-20260613">
   <link rel="stylesheet" href="css/components.css?v=cart-mobile-20260605">
-  <link rel="stylesheet" href="css/responsive.css?v=android-overflow-20260605">
+  <link rel="stylesheet" href="css/responsive.css?v=menu-mobile-20260613">
 </head>
 <body>
   <a class="skip-link" href="#catalogue">Aller au catalogue</a>
@@ -47,10 +47,16 @@
         <a href="#contact" data-i18n="nav.contact">Contact</a>
       </div>
       <div class="nav-actions">
+        <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Ouvrir le menu" data-i18n-aria="nav.menu" aria-controls="mobile-menu" aria-expanded="false"><span class="menu-bars" aria-hidden="true"></span></button>
         <select id="lang-select" aria-label="Changer la langue" data-i18n-aria="lang.change">
           <option value="fr">FR</option><option value="en">EN</option><option value="ar">AR</option>
         </select>
         <button id="cart-open" class="btn btn-dark" aria-label="Ouvrir le panier" aria-controls="cart-drawer" data-i18n-aria="cart.open"><span data-i18n="cart.button">Panier</span> <span id="cart-count">0</span></button>
+      </div>
+      <div id="mobile-menu" class="mobile-menu" role="menu" aria-label="Navigation" hidden>
+        <a href="#catalogue" role="menuitem" data-i18n="nav.catalog">Catalogue</a>
+        <a href="#fonctionnement" role="menuitem" data-i18n="nav.how">Fonctionnement</a>
+        <a href="#contact" role="menuitem" data-i18n="nav.contact">Contact</a>
       </div>
     </nav>
   </header>
@@ -212,6 +218,6 @@
     <p>© <span id="current-year"></span> AHADO EXPRESS — Liban Ali. <span data-i18n="footer.rights">Tous droits réservés.</span></p>
   </footer>
 
-  <script type="module" src="js/main.js?v=sheet-expire-20260605"></script>
+  <script type="module" src="js/main.js?v=menu-mobile-20260613"></script>
 </body>
 </html>

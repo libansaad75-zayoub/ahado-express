@@ -11,6 +11,7 @@
   .hero-promises{grid-template-columns:repeat(2,minmax(0,1fr));max-width:none}
   .grid-3{grid-template-columns:1fr}
   .nav-links{display:none}
+  .menu-toggle{display:inline-flex}
   .section-head{grid-template-columns:1fr;grid-template-areas:"eyebrow" "title" "search";align-items:stretch}
   .section-head .search-box{margin-top:.45rem}
   .site-footer{grid-template-columns:1fr;text-align:start}
