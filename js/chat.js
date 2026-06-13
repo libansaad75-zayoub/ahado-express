@@ -5,6 +5,10 @@ import {CONFIG} from './config.js?v=price-sync-20260604';
 import {addToCart, getCart, cartTotal} from './cart.js?v=price-sync-20260604';
 import {trackEvent} from './analytics.js';
 import {openDialog, closeDialog} from './utils.js';
+import {translate} from './i18n.js?v=menu-mobile-20260613';
+
+// Traduit une clé i18n dans la langue courante, avec interpolation {var}.
+const t = (k, vars) => { let s = translate(k); if (vars) for (const [a, b] of Object.entries(vars)) s = s.replaceAll('{' + a + '}', String(b)); return s; };
 
 let products = [];
 let opened = false;
@@ -92,7 +96,7 @@ function showCart() {
   const total = cartTotal();
   const free = total >= CONFIG.freeDeliveryThreshold;
   const cart = make('div', 'chat-cart');
-  cart.appendChild(make('div', 'chat-cart-title', '🛒 Votre panier'));
+  cart.appendChild(make('div', 'chat-cart-title', t('chat.cartTitle')));
   c.forEach(i => {
     const line = make('div', 'chat-cart-line');
     line.appendChild(make('span', '', `${i.name} ${i.label} × ${i.qty}`));
@@ -100,13 +104,13 @@ function showCart() {
     cart.appendChild(line);
   });
   const totalRow = make('div', 'chat-cart-total');
-  totalRow.appendChild(make('span', '', 'Total'));
+  totalRow.appendChild(make('span', '', t('chat.total')));
   totalRow.appendChild(make('span', '', `${total.toLocaleString('fr-FR')} FDJ`));
   cart.appendChild(totalRow);
   cart.appendChild(make('div', 'chat-cart-free', free
-    ? '✓ Livraison gratuite (seuil atteint)'
-    : `Plus que ${(CONFIG.freeDeliveryThreshold - total).toLocaleString('fr-FR')} FDJ pour la livraison gratuite`));
-  const btn = make('button', 'chat-finalize', 'Finaliser ma commande');
+    ? t('chat.freeReached')
+    : t('chat.freeRemaining', { x: (CONFIG.freeDeliveryThreshold - total).toLocaleString('fr-FR') })));
+  const btn = make('button', 'chat-finalize', t('chat.finalize'));
   btn.type = 'button';
   btn.dataset.action = 'finalize';
   cart.appendChild(btn);
@@ -120,7 +124,7 @@ function addVariantToCart(p, v, qty) {
 
 function proposeProducts(list, qty) {
   // Construit des chips de choix (produit + 1re variante)
-  const bubble = make('div', 'chat-bubble', "Voici ce que j'ai trouvé, lequel voulez-vous ?");
+  const bubble = make('div', 'chat-bubble', t('chat.found'));
   const chips = make('div', 'chat-chips');
   list.slice(0, 8).forEach(p => {
     const v = p.variants[0];
@@ -155,7 +159,7 @@ async function tryAI(text) {
     removeTyping(typing);
     if (!res.ok) return false;
     const data = await res.json();
-    if (data.mode === 'busy') { botSay(data.reply || 'Trop de messages, réessayez dans un instant.'); return true; }
+    if (data.mode === 'busy') { botSay(data.reply || t('chat.busy')); return true; }
     if (data.mode !== 'ai') { aiAvailable = false; return false; } // pas de clé/erreur → repli Phase 1
     if (data.reply) botSay(data.reply);
     history.push({ role: 'user', text }); history.push({ role: 'model', text: data.reply || '' });
@@ -184,8 +188,8 @@ function handleInput(text) {
   if (names.length) {
     let added = 0;
     names.forEach(p => { const v = p.variants[0]; if (v) { addVariantToCart(p, v, qty); added++; } });
-    if (added === 1) botSay(`C'est noté ✅ (${qty} × ${names[0].name}).`);
-    else botSay(`J'ai ajouté ${added} produits ✅. Vous ajusterez les quantités au panier si besoin.`);
+    if (added === 1) botSay(t('chat.addedOne', { qty, name: names[0].name }));
+    else botSay(t('chat.addedMany', { n: added }));
     showCart();
     return;
   }
@@ -199,13 +203,13 @@ function handleInput(text) {
 
   // 3) Aide : intention « commander / c'est tout »
   if (/\b(commander|finaliser|c.?est tout|terminer|valider)\b/.test(norm(text))) {
-    if (getCart().length) { botSay('Parfait ! Je vous emmène vers la validation.'); finalize(); }
-    else botSay('Votre panier est vide pour l\'instant. Dites-moi ce que vous voulez (ex. « riz », « huile », « coca »).');
+    if (getCart().length) { botSay(t('chat.toCheckout')); finalize(); }
+    else botSay(t('chat.emptyCart'));
     return;
   }
 
   // 4) Rien trouvé
-  botSay("Je n'ai pas trouvé ce produit. Essayez un nom ou une catégorie : riz, huile, lait, boissons, hygiène…");
+  botSay(t('chat.notFound'));
 }
 
 function finalize() {
@@ -225,8 +229,8 @@ function toggle(force) {
   fab.setAttribute('aria-expanded', String(opened));
   if (opened) {
     if (!el('chat-messages').childElementCount) {
-      botSay('Bonjour 👋 Je suis l\'assistant AHADO EXPRESS.');
-      botSay('Dites-moi ce que vous voulez commander (ex. « riz », « 2 huile », « coca »), je remplis votre panier.');
+      botSay(t('chat.welcome1'));
+      botSay(t('chat.welcome2'));
     }
     openDialog(panel, () => toggle(false), el('chat-input')); // focus-trap + Échap
   } else {
@@ -246,7 +250,7 @@ export function bindChatEvents() {
     const pick = e.target.closest('[data-pick]');
     if (pick) {
       const p = products[Number(pick.dataset.pick)]; const v = p?.variants[0];
-      if (p && v) { addVariantToCart(p, v, Number(pick.dataset.qty) || 1); userSay(p.name); botSay(`C'est noté ✅ (${pick.dataset.qty || 1} × ${p.name}).`); showCart(); }
+      if (p && v) { addVariantToCart(p, v, Number(pick.dataset.qty) || 1); userSay(p.name); botSay(t('chat.addedOne', { qty: pick.dataset.qty || 1, name: p.name })); showCart(); }
       return;
     }
     if (e.target.closest('[data-action="finalize"]')) finalize();

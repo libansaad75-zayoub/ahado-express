@@ -5,7 +5,7 @@ import {bindCartEvents,renderCart,setProductsForUpsell,addToCart} from './cart.j
 import {initCheckout,bindCheckoutEvents} from './checkout.js?v=price-sync-20260604';
 import {applyI18n,getLang} from './i18n.js?v=menu-mobile-20260613';
 import {bindTrackedLinks} from './analytics.js';
-import {initChat,bindChatEvents} from './chat.js?v=price-sync-20260604';
+import {initChat,bindChatEvents} from './chat.js?v=menu-mobile-20260613';
 import {openDialog,closeDialog} from './utils.js';
 function bindUI(products){
   const drawer=document.getElementById('cart-drawer');
