@@ -171,12 +171,12 @@
       "name": "Sucre",
       "popular": true,
       "icon": "🛒",
-      "label1": "Sac 25 Kg",
+      "label1": "25 kg",
       "price1": 3000,
-      "label2": "2 sacs (50 Kg)",
-      "price2": 5800,
-      "label3": "5 sacs (125 Kg)",
-      "price3": 14400,
+      "label2": "5 kg",
+      "price2": 800,
+      "label3": "50 kg",
+      "price3": 5800,
       "image": "photos/sucre.webp"
     },
     {
@@ -843,7 +843,7 @@
     },
     {
       "cat": "Lait Infantile",
-      "name": "Bledilait 3",
+      "name": "Bledilait 1-3 ans",
       "popular": false,
       "icon": "👶",
       "label1": "Boîte",
@@ -2084,6 +2084,86 @@
       "label3": "2 Cartons",
       "price3": 5700,
       "image": "photos/pasta-primo-spaghetti-500g.webp"
+    },
+    {
+      "cat": "Epices",
+      "name": "Dania Bouillon d'Épices",
+      "popular": false,
+      "icon": "🛒",
+      "label1": "boite",
+      "price1": 300
+    },
+    {
+      "cat": "Epices",
+      "name": "Dania Épices Biryani",
+      "popular": false,
+      "icon": "🛒",
+      "label1": "boite",
+      "price1": 300
+    },
+    {
+      "cat": "Epices",
+      "name": "Dania Mélange Sept Épices",
+      "popular": false,
+      "icon": "🛒",
+      "label1": "boite",
+      "price1": 300
+    },
+    {
+      "cat": "Autres",
+      "name": "Couscous",
+      "popular": false,
+      "icon": "🛒",
+      "label1": "paque 1 kg",
+      "price1": 800
+    },
+    {
+      "cat": "Lait Infantile",
+      "name": "NAN OptiPro 1",
+      "popular": false,
+      "icon": "🛒",
+      "label1": "boite",
+      "price1": 2500
+    },
+    {
+      "cat": "Lait Infantile",
+      "name": "Nuna Cereal+",
+      "popular": false,
+      "icon": "🛒",
+      "label1": "boite",
+      "price1": 1500
+    },
+    {
+      "cat": "Riz",
+      "name": "Riz President",
+      "popular": false,
+      "icon": "🛒",
+      "label1": "sacs 5kg",
+      "price1": 250
+    },
+    {
+      "cat": "Autres",
+      "name": "Vinaigre",
+      "popular": false,
+      "icon": "🛒",
+      "label1": "bouteille 1L",
+      "price1": 700
+    },
+    {
+      "cat": "Nettoyage",
+      "name": "Gaari Shampo 2L",
+      "popular": false,
+      "icon": "🛒",
+      "label1": "bidon 2L",
+      "price1": 700
+    },
+    {
+      "cat": "Nettoyage",
+      "name": "Fasclean 2L",
+      "popular": false,
+      "icon": "🛒",
+      "label1": "bidon 2L",
+      "price1": 700
     }
   ]
 }
