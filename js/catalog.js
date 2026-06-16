@@ -48,21 +48,25 @@ export function renderCatalog(){
     const photo=hasPhoto(p);
     const primaryVariant=p.variants[0];
     return `
-    <article class="product-card ${photo?'product-card-photo':''}">
-      <div class="product-media ${catClass(p.cat)} ${photo?'has-photo':''}" ${photo?'':`role="img" aria-label="${esc(p.name)}"`}>
-        ${photo?`<img class="product-photo" src="${esc(p.image)}" alt="${esc(p.name)}" width="720" height="720" loading="lazy" decoding="async"><span class="photo-badge">${esc(translate('catalog.photoBadge'))}</span>`:`<span class="product-emoji">${esc(p.icon||'🛒')}</span>`}
-        ${p.popular?'<span class="badge">⭐ Populaire</span>':''}
+    <article class="ahado-hcard">
+      <div class="ahado-hcard__img">
+        ${photo
+          ?`<img src="${esc(p.image)}" alt="${esc(p.name)}" width="116" height="118" loading="lazy" decoding="async">`
+          :`<span class="ahado-hcard__emoji" role="img" aria-label="${esc(p.name)}">${esc(p.icon||'🛒')}</span>`
+        }
+        ${photo?'<span class="ahado-hcard__badge-real">✓ Réelle</span>':''}
+        ${p.popular?'<span class="ahado-hcard__badge-popular">⭐ Populaire</span>':''}
       </div>
-      <div class="product-body">
-        <p class="product-cat">${esc(p.cat)}</p>
-        <h3 class="product-name">${esc(p.name)}</h3>
-        <div class="variants">
-          ${primaryVariant?`<div class="variant-row">
-            <span class="variant-label">${esc(primaryVariant.label)}</span>
-            <strong class="price">${Number(primaryVariant.price).toLocaleString('fr-FR')} FDJ</strong>
-            <button class="btn btn-add" data-add="${products.indexOf(p)}" aria-label="Ajouter ${esc(p.name)} ${esc(primaryVariant.label)} au panier">+</button>
-          </div>`:''}
+      <div class="ahado-hcard__body">
+        <div>
+          <span class="ahado-hcard__cat ${catClass(p.cat)}">${esc(p.cat)}</span>
+          <div class="ahado-hcard__name">${esc(p.name)}</div>
+          ${primaryVariant?`<div class="ahado-hcard__unit">${esc(primaryVariant.label)}</div>`:''}
         </div>
+        ${primaryVariant?`<div class="ahado-hcard__footer">
+          <div class="ahado-hcard__price">${Number(primaryVariant.price).toLocaleString('fr-FR')}<span>FDJ</span></div>
+          <button class="ahado-hcard__btn" data-add="${products.indexOf(p)}" aria-label="Ajouter ${esc(p.name)} ${esc(primaryVariant.label)} au panier">+</button>
+        </div>`:''}
       </div>
     </article>`;}).join('') || '<p class="catalog-empty">Aucun produit trouvé.</p>';
 }

@@ -73,6 +73,39 @@
 .btn-add:hover{background:var(--forest-dark);transform:scale(1.08)}
 .catalog-empty{color:var(--muted);grid-column:1/-1;padding:2rem 0}
 
+/* Carte produit — style horizontal compact (card4-horizontal) */
+.ahado-hcard{display:flex;background:var(--card);border-radius:18px;overflow:hidden;border:1.5px solid var(--line,oklch(.9 .022 80));box-shadow:0 2px 12px oklch(.2 .03 155 / .06);transition:box-shadow .2s,transform .2s;min-width:0}
+.ahado-hcard:hover{box-shadow:0 6px 24px oklch(.34 .095 154 / .13);transform:translateY(-1px)}
+.ahado-hcard__img{position:relative;width:116px;min-width:116px;flex-shrink:0;min-height:118px;background:linear-gradient(145deg,oklch(.93 .05 152),oklch(.84 .08 152));display:flex;align-items:center;justify-content:center}
+.ahado-hcard__img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ahado-hcard__emoji{font-size:2.25rem;line-height:1;position:relative;z-index:1}
+.ahado-hcard__badge-popular{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:var(--persimmon);color:var(--cream);font-size:9px;font-weight:700;padding:3px 8px;border-radius:999px;white-space:nowrap;box-shadow:0 4px 8px oklch(.66 .19 38 / .35)}
+.ahado-hcard__badge-real{position:absolute;top:7px;left:6px;background:oklch(.34 .095 154 / .85);color:var(--cream);font-size:8px;font-weight:700;padding:2px 6px;border-radius:6px}
+.ahado-hcard__body{flex:1;padding:13px 14px 12px;display:flex;flex-direction:column;justify-content:space-between;min-width:0}
+.ahado-hcard__cat{display:inline-block;background:var(--persimmon-soft);color:var(--persimmon);font-size:.65rem;font-weight:800;padding:3px 9px;border-radius:999px;letter-spacing:.05em;text-transform:uppercase}
+/* Pastilles catégories — famille OKLCH harmonieuse (même profil, teinte qui tourne) */
+.ahado-hcard__cat.cat-epices{background:oklch(.93 .065 38);color:oklch(.5 .16 38)}
+.ahado-hcard__cat.cat-spaghetti{background:oklch(.93 .06 55);color:oklch(.48 .14 55)}
+.ahado-hcard__cat.cat-riz{background:oklch(.93 .07 85);color:oklch(.45 .12 85)}
+.ahado-hcard__cat.cat-petit-dej{background:oklch(.93 .07 100);color:oklch(.44 .12 100)}
+.ahado-hcard__cat.cat-huiles{background:oklch(.93 .07 122);color:oklch(.44 .13 122)}
+.ahado-hcard__cat.cat-frais{background:oklch(.93 .06 150);color:oklch(.45 .14 150)}
+.ahado-hcard__cat.cat-conserves{background:oklch(.93 .055 175);color:oklch(.45 .1 175)}
+.ahado-hcard__cat.cat-boissons{background:oklch(.93 .06 200);color:oklch(.48 .11 200)}
+.ahado-hcard__cat.cat-nettoyage{background:oklch(.93 .055 225);color:oklch(.5 .13 225)}
+.ahado-hcard__cat.cat-lait-poudre{background:oklch(.93 .055 250);color:oklch(.5 .14 250)}
+.ahado-hcard__cat.cat-lait-infantile{background:oklch(.93 .05 280);color:oklch(.5 .15 280)}
+.ahado-hcard__cat.cat-bebe{background:oklch(.93 .055 320);color:oklch(.52 .16 320)}
+.ahado-hcard__cat.cat-hygiene{background:oklch(.93 .06 350);color:oklch(.52 .16 350)}
+.ahado-hcard__cat.cat-autres{background:oklch(.93 .012 155);color:oklch(.46 .02 155)}
+.ahado-hcard__name{font-weight:800;font-size:.9rem;color:var(--ink);line-height:1.3;margin-top:7px;overflow-wrap:break-word;word-break:break-word;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ahado-hcard__unit{font-size:.68rem;color:var(--muted);margin-top:3px}
+.ahado-hcard__footer{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:.5rem}
+.ahado-hcard__price{font-weight:900;font-size:1.05rem;color:var(--forest);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ahado-hcard__price span{font-size:.68rem;color:var(--muted);font-weight:600;margin-left:2px}
+.ahado-hcard__btn{width:36px;height:36px;min-width:36px;border-radius:50%;background:var(--forest);color:var(--cream);border:none;font-weight:900;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .15s,background .15s;box-shadow:0 4px 10px oklch(.34 .095 154 / .3)}
+.ahado-hcard__btn:hover{transform:scale(1.1);background:var(--forest-dark)}
+
 /* Tiroir panier */
 .cart-drawer{position:fixed;inset-inline-end:1rem;top:1rem;bottom:1rem;width:min(430px,calc(100vw - 2rem));max-height:calc(100dvh - 2rem);overflow:hidden;background:var(--cream);border:2px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);z-index:80;padding:1rem;display:flex;flex-direction:column;gap:1rem;transform:translateX(120%);transition:transform .3s cubic-bezier(.22,1,.36,1)}
 body[dir="rtl"] .cart-drawer{transform:translateX(-120%)}
