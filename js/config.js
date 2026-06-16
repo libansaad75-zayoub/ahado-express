@@ -5,8 +5,8 @@ export const CONFIG = {
   domain: 'https://ahadoexpress.net',
   whatsappNumber: '25377788302',
   freeDeliveryThreshold: 10000,
-  cacheKey: 'ahado_catalog_cache_v7',
-  cacheTTL: 1000 * 60 * 30,
+  cacheKey: 'ahado_catalog_cache_v8',
+  cacheTTL: 1000 * 60 * 10,
   // Remplacer par l'identifiant réel du Google Sheet publié en lecture publique
   sheetId: '1WnLMz5rtsKa0cCmbqNN_Fh3d_5nm99kJVmzrN4427-Y',
   sheetName: 'Produits',
