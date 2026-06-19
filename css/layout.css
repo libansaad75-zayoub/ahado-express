@@ -85,17 +85,6 @@
 .grid-3 .bento-card h3{margin:.3rem 0;font-size:1.3rem}
 .grid-3 .bento-card p{color:var(--muted);margin:0;font-weight:600}
 
-/* Video promo */
-.video-wrap{display:flex;gap:clamp(1.75rem,4vw,4rem);align-items:center;justify-content:center;flex-wrap:wrap;max-width:var(--page-max);margin:0 auto}
-.video-copy{flex:1 1 340px;max-width:34ch}
-.video-copy h2{margin:.6rem 0 1rem}
-.video-copy .lead{font-size:1.18rem;line-height:1.55;color:var(--muted);max-width:50ch;margin-bottom:1.6rem}
-.video-frame{position:relative;flex:0 0 auto;margin:0;isolation:isolate}
-.video-frame::before{content:"";position:absolute;inset:-14% -20%;z-index:-1;background:radial-gradient(42% 48% at 72% 18%,var(--gold-soft) 0,transparent 70%),radial-gradient(50% 52% at 18% 92%,var(--forest-soft) 0,transparent 72%)}
-.promo-video{width:min(300px,76vw);aspect-ratio:9/16;height:auto;display:block;object-fit:cover;border-radius:var(--radius);border:2px solid var(--ink);background:var(--forest-dark);box-shadow:0 26px 70px oklch(.57 .16 152/.22);transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s cubic-bezier(.22,1,.36,1)}
-.video-frame:hover .promo-video{transform:translateY(-6px);box-shadow:0 34px 84px oklch(.57 .16 152/.3)}
-.video-badge{position:absolute;top:14px;inset-inline-start:14px;z-index:2;display:inline-flex;align-items:center;gap:.35rem;font-family:var(--font-head);font-weight:800;font-size:.85rem;letter-spacing:.01em;background:var(--gold);color:oklch(.32 .08 70);padding:.4rem .85rem;border-radius:999px;border:2px solid var(--ink);box-shadow:0 8px 18px oklch(.82 .15 85/.45)}
-
 /* Catalogue */
 .section-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,420px);grid-template-areas:"eyebrow ." "title search";align-items:center;column-gap:clamp(1.5rem,4vw,3rem);row-gap:.45rem;margin-bottom:1.7rem}
 .section-head>.eyebrow{grid-area:eyebrow;margin:0}
