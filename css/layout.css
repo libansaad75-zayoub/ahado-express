@@ -101,7 +101,7 @@
 .section-head>.eyebrow{grid-area:eyebrow;margin:0}
 .section-head>h2{grid-area:title;margin:0;min-width:0}
 .section-head .search-box{grid-area:search;align-self:center}
-.catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));grid-auto-rows:1fr;gap:clamp(1rem,1.8vw,1.35rem);align-items:stretch}
+.catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:clamp(.85rem,1.5vw,1.1rem);align-items:start}
 
 /* Footer — bloc plein sombre pour clore avec caractère */
 .site-footer{max-width:var(--page-max);margin:2.5rem auto;padding:2.25rem clamp(2rem,3vw,2.6rem);border-radius:var(--radius);background:linear-gradient(155deg,var(--forest-dark),oklch(.28 .07 156));color:oklch(.95 .02 84 / .85);display:grid;grid-template-columns:minmax(240px,1fr) auto minmax(240px,1fr);align-items:center;gap:1.4rem}

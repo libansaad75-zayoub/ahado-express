@@ -91,8 +91,9 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/layout.css?v=menu-mobile-20260613">
-  <link rel="stylesheet" href="css/components.css?v=cart-mobile-20260605">
-  <link rel="stylesheet" href="css/responsive.css?v=menu-mobile-20260613">
+  <link rel="stylesheet" href="css/components.css?v=promesses-20260619-slick">
+  <link rel="stylesheet" href="css/responsive.css?v=promesses-20260619-slick">
+  <link rel="stylesheet" href="css/promesses.css?v=promesses-20260619-moto">
 </head>
 <body>
   <a class="skip-link" href="#catalogue">Aller au catalogue</a>
@@ -101,7 +102,6 @@
       <a class="brand" href="#top" aria-label="AHADO EXPRESS accueil"><span>AHADO</span> EXPRESS</a>
       <div class="nav-links">
         <a href="#catalogue" data-i18n="nav.catalog">Catalogue</a>
-        <a href="#fonctionnement" data-i18n="nav.how">Fonctionnement</a>
         <a href="#contact" data-i18n="nav.contact">Contact</a>
       </div>
       <div class="nav-actions">
@@ -113,7 +113,6 @@
       </div>
       <div id="mobile-menu" class="mobile-menu" role="menu" aria-label="Navigation" hidden>
         <a href="#catalogue" role="menuitem" data-i18n="nav.catalog">Catalogue</a>
-        <a href="#fonctionnement" role="menuitem" data-i18n="nav.how">Fonctionnement</a>
         <a href="#contact" role="menuitem" data-i18n="nav.contact">Contact</a>
       </div>
     </nav>
@@ -137,24 +136,6 @@
           <a class="btn btn-primary" href="#catalogue" data-i18n="hero.cta">Commander maintenant</a>
           <a class="btn btn-soft" href="https://wa.me/25377788302" data-track="WhatsApp_FAB_Click" data-i18n="hero.whatsapp">WhatsApp</a>
         </div>
-        <ul class="hero-promises" aria-label="Promesses AHADO EXPRESS" data-i18n-aria="hero.promisesLabel">
-          <li>
-            <span class="promise-mark" aria-hidden="true">174</span>
-            <span><strong data-i18n="hero.promiseStockTitle">Stock prêt</strong><small data-i18n="hero.promiseStockText">produits essentiels visibles</small></span>
-          </li>
-          <li>
-            <span class="promise-mark" aria-hidden="true">19</span>
-            <span><strong data-i18n="hero.promiseZoneTitle">Quartiers servis</strong><small data-i18n="hero.promiseZoneText">zone Djibouti-Ville claire</small></span>
-          </li>
-          <li>
-            <span class="promise-mark" aria-hidden="true">FDJ</span>
-            <span><strong data-i18n="hero.promisePayTitle">Paiements locaux</strong><small data-i18n="hero.promisePayText">Cash, Waafi, CAC Pay, D-Money</small></span>
-          </li>
-          <li>
-            <span class="promise-mark" aria-hidden="true">WA</span>
-            <span><strong data-i18n="hero.promiseWhatsAppTitle">WhatsApp direct</strong><small data-i18n="hero.promiseWhatsAppText">commande pré-remplie</small></span>
-          </li>
-        </ul>
       </div>
         <figure class="hero-photo">
           <img src="images/boutique-hero.webp" alt="Boutique AHADO EXPRESS à Djibouti-Ville : rayons remplis d'eau, huile, riz, conserves et produits d'épicerie" width="1100" height="825" fetchpriority="high">
@@ -162,12 +143,54 @@
       </div>
     </section>
 
-    <section id="fonctionnement" class="section steps" aria-labelledby="fonctionnement-titre">
-      <h2 id="fonctionnement-titre" data-i18n="how.title">Comment ça marche ?</h2>
-      <div class="grid-3">
-        <article class="bento-card"><strong>1</strong><h3 data-i18n="how.oneTitle">Choisissez</h3><p data-i18n="how.oneText">Ajoutez les produits au panier.</p></article>
-        <article class="bento-card"><strong>2</strong><h3 data-i18n="how.twoTitle">Validez</h3><p data-i18n="how.twoText">Indiquez téléphone, quartier, adresse et paiement.</p></article>
-        <article class="bento-card"><strong>3</strong><h3 data-i18n="how.threeTitle">Recevez</h3><p data-i18n="how.threeText">La commande part vers WhatsApp AHADO EXPRESS.</p></article>
+    <section class="promesses" aria-labelledby="promesses-titre">
+      <div class="promesses-head">
+        <p class="eyebrow" data-i18n="promesses.eyebrow">De l'étal à votre porte</p>
+        <h2 id="promesses-titre" data-i18n="promesses.title">Votre commande, étape par étape</h2>
+      </div>
+      <div class="route" id="promesses-route">
+        <div class="route-anim" aria-hidden="true">
+          <svg class="routesvg" viewBox="0 0 1180 240" preserveAspectRatio="none" focusable="false">
+            <path class="track" d="M 40 130 C 300 50, 460 200, 620 120 S 960 78, 1100 140"/>
+            <path class="path"  d="M 40 130 C 300 50, 460 200, 620 120 S 960 78, 1100 140"/>
+          </svg>
+        </div>
+        <ol class="stations">
+          <li class="station st1">
+            <span class="stdot" aria-hidden="true">174</span>
+            <span class="stepn" data-i18n="promesses.step1">Étape 1</span>
+            <h3 data-i18n="hero.promiseStockTitle">Stock prêt</h3>
+            <p data-i18n="promesses.stockText">174 produits en rayon</p>
+          </li>
+          <li class="station st2">
+            <span class="stdot" aria-hidden="true">19</span>
+            <span class="stepn" data-i18n="promesses.step2">Étape 2</span>
+            <h3 data-i18n="hero.promiseZoneTitle">Quartiers servis</h3>
+            <p data-i18n="promesses.zoneText">19 quartiers couverts</p>
+          </li>
+          <li class="station st3">
+            <span class="stdot" aria-hidden="true">FDJ</span>
+            <span class="stepn" data-i18n="promesses.step3">Étape 3</span>
+            <h3 data-i18n="hero.promisePayTitle">Paiements locaux</h3>
+            <p data-i18n="promesses.payText">Cash, Waafi, CAC Pay…</p>
+          </li>
+          <li class="station st4">
+            <span class="stdot" aria-hidden="true">WA</span>
+            <span class="stepn" data-i18n="promesses.step4">Étape 4</span>
+            <h3 data-i18n="hero.promiseWhatsAppTitle">WhatsApp direct</h3>
+            <p data-i18n="promesses.whatsappText">Commande envoyée !</p>
+          </li>
+        </ol>
+        <span class="moto-marker" aria-hidden="true">
+          <svg class="moto-icon" viewBox="0 0 64 64" focusable="false" aria-hidden="true">
+            <circle class="moto-wheel" cx="18" cy="45" r="7"/>
+            <circle class="moto-wheel" cx="47" cy="45" r="7"/>
+            <path class="moto-frame" d="M18 45l10-17h12l7 17M28 28l8 17M35 45l12-15h8"/>
+            <path class="moto-frame" d="M25 27h15M47 30l8-6M54 24l5 3"/>
+            <path class="moto-rider" d="M34 19l6 6 5 2"/>
+            <circle class="moto-rider" cx="32" cy="15" r="4"/>
+          </svg>
+        </span>
       </div>
     </section>
 
@@ -276,6 +299,6 @@
     <p>© <span id="current-year"></span> AHADO EXPRESS — Liban Ali. <span data-i18n="footer.rights">Tous droits réservés.</span></p>
   </footer>
 
-  <script type="module" src="js/main.js?v=menu-mobile-20260613"></script>
+  <script type="module" src="js/main.js?v=promesses-20260619-moto"></script>
 </body>
 </html>

@@ -7,6 +7,7 @@ import {applyI18n,getLang} from './i18n.js?v=menu-mobile-20260613';
 import {bindTrackedLinks} from './analytics.js';
 import {initChat,bindChatEvents} from './chat.js?v=menu-mobile-20260613';
 import {openDialog,closeDialog} from './utils.js';
+import {initPromesses} from './promesses.js?v=promesses-20260619-moto';
 function bindUI(products){
   const drawer=document.getElementById('cart-drawer');
   const closeCart=()=>{drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true');drawer.inert=true;closeDialog();};
@@ -30,6 +31,7 @@ function injectSchema(products){
 }
 document.addEventListener('DOMContentLoaded',async()=>{
   const lang=getLang(); document.getElementById('lang-select').value=lang; applyI18n(lang); document.getElementById('current-year').textContent=new Date().getFullYear();
+  initPromesses();
   let products=[];
   try{ products=await loadCatalog(); }catch(e){ products=[]; }
   if(!products.length){
